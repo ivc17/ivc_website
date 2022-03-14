@@ -3,18 +3,21 @@ import { Effect } from 'components/Effects/Effect'
 
 // @ts-ignore
 import fragment from '../../shaders/wave.frag'
+import { BlendFunction } from './Blend'
+import { Uniform } from 'three'
 
 export class WaveEffectImpl extends Effect {
-  time: any
+  iTime: any
 
   constructor() {
     super('WaveEffect', fragment, {
-      uniforms: new Map([])
+      uniforms: new Map<string, any>([['iTime', new Uniform(0.0)]]),
+      blendFunction: BlendFunction.NORMAL
     })
   }
 
   update(renderer: any, inputBuffer: any, deltaTime: any) {
-    this.time += deltaTime
+    this.uniforms.get('iTime').value += deltaTime
   }
 }
 

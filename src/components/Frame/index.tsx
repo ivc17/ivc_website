@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import Effects from 'components/Effects'
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 
 // @ts-ignore
 declare module '!!raw-loader!*' {
@@ -10,13 +10,15 @@ declare module '!!raw-loader!*' {
 
 export default function Frame() {
   return (
-    <Canvas>
-      <Effects />
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
+    <Suspense fallback={null}>
+      <Canvas>
+        <Effects />
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        <Box position={[-1.2, 0, 0]} />
+        <Box position={[1.2, 0, 0]} />
+      </Canvas>
+    </Suspense>
   )
 }
 

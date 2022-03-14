@@ -23,7 +23,8 @@
     "src/lib/slider.js",
     "src/components/Effects/Blend.js",
     "src/components/Effect.js",
-    "config-overrides.js"
+    "config-overrides.js",
+    "src/components/Effects/blobEffecttsx"
   ],
   "exclude": ["node_modules"]
 }
