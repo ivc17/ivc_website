@@ -1,35 +1,78 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, styled, Typography } from '@mui/material'
+import { fontFamily } from '@mui/system'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
+import TextCarousel from './TextCarousel'
 
+const carouselText = [
+  'FrontendDevelopment',
+  'Ui/UxDesign',
+  'GraphicDesign',
+  'FineArt'
+]
+
+const StyledButton = styled(Button)({
+  display: 'block',
+  justifyContent: 'flex-start',
+  fontSize: 40,
+  '&:hover': {
+    background: '#ffffff',
+    width: '100%',
+    color: '#000000',
+    transition: '0.5s'
+  }
+})
 export default function Header() {
   return (
     <Box position="fixed" top={'0'} left={'0'} width="100%">
       <Box position="relative">
         <Box
-          sx={{ background: '#000000' }}
+          sx={{
+            background: '#000000',
+            color: '#ffffff',
+            fontSize: 18,
+            fontWeight: 900,
+            fontFamily: 'sans-serif',
+            '& button': {
+              whiteSpace: 'nowrap'
+            }
+          }}
           width="100%"
-          height="40px"
-          marginLeft={'40px'}
-        ></Box>
+          height="35px"
+          paddingLeft={'100px'}
+          display="flex"
+        >
+          <Button>About</Button>
+          <Button>All work</Button>
+          <Box flexGrow={1} overflow="hidden" position="relative">
+            <TextCarousel
+              textList={carouselText}
+              orientation="horizontal"
+              duration={30}
+            />
+          </Box>
+        </Box>
 
         <Box
-          width="40px"
+          width="35px"
           height="100%"
           minHeight={'100vh'}
           mt="-40px"
-          position="absolute"
           top={0}
-          left={40}
-          sx={{ background: '#ffffff' }}
+          left={0}
+          sx={{
+            background: '#ffffff',
+            writingMode: 'vertical-rl',
+            position: 'absolute'
+          }}
         >
-          apple apple apple apple
+          <TextCarousel textList={carouselText} orientation="vertical" />
         </Box>
-        <Box padding={'20px 0 0 100px'}>
+        <Box padding={'20px 0 0 35px'}>
           <Logo style={{ minHeight: '100px', height: '18vh' }} />
-          <Typography fontSize={40}>Fine Art</Typography>
-          <Typography fontSize={40}>Web</Typography>
-          <Typography fontSize={40}>Graphic Design</Typography>
-          <Typography fontSize={40}>Photography</Typography>
+          <StyledButton>Fine Art</StyledButton>
+          <StyledButton>Web</StyledButton>
+          <StyledButton>Graphic Design</StyledButton>
+          <StyledButton>Photography</StyledButton>
         </Box>
       </Box>
     </Box>

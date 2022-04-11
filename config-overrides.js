@@ -2,7 +2,7 @@
 module.exports = function override(config, env) {
 
   const rawLoader = {
-    test: /\.frag$/,
+    test: /\.(frag|vert)$/,
     use: [
       {
         loader: require.resolve('raw-loader'),
