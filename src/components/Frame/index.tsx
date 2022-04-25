@@ -1,55 +1,34 @@
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Suspense, useRef } from 'react'
-import { arrayBuffer } from 'stream/consumers'
-import { WaveMaterial } from './GlassMesh'
+import { Canvas } from '@react-three/fiber'
+import { Suspense } from 'react'
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import noiseShader from '!raw-loader!../../shaders/noiseMaterial.frag'
+import { Environment, OrbitControls } from '@react-three/drei'
+import Pineapple from './Pineapple'
 
 export default function Frame() {
   return (
     <Suspense fallback={null}>
-      <Canvas>
+      <Canvas shadows camera={{ position: [0, 0, -100], fov: 22 }}>
         {/* <Effects /> */}
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <mesh position={[0, 0, 0]}>
-          <bufferGeometry>
-            <bufferAttribute></bufferAttribute>
-          </bufferGeometry>
-          <meshBasicMaterial attach="material" color="red" />
-        </mesh>
-        <Mesh
-          material={
-            <meshPhysicalMaterial
-              reflectivity={1}
-              roughness={0.4}
-              transmission={1}
-              thickness={1}
-            />
-          }
-          position={[0, 0, 0]}
+
+        <hemisphereLight intensity={0.2} />
+        <ambientLight intensity={0.5} />
+        {/* <Environment preset="warehouse" /> */}
+        {/* <fog attach="fog" args={['#f0f0f0', 100, 150]} /> */}
+        <color attach="background" args={['#ededed']} />
+        <spotLight
+          penumbra={1}
+          angle={1}
+          castShadow
+          position={[10, 40, -3]}
+          intensity={8}
+          shadow-mapSize={[512, 512]}
         />
-        <Mesh material={<WaveMaterial />} position={[0, 0, -5]} />
+        <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
+        <Pineapple />
       </Canvas>
     </Suspense>
-  )
-}
-
-function Mesh({ material, ...props }: any & { material: JSX.Element }) {
-  // This reference will give us direct access to the mesh
-  const mesh = useRef<any>()
-  // Set up state for the hovered and active state
-
-  // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => {
-    if (!mesh.current) return
-    // mesh.current.rotation.x += 0.01
-  })
-
-  return (
-    <mesh {...props} ref={mesh}>
-      {material}
-      <boxGeometry args={[5, 5, 3]} />
-      {/* <WaveMaterial /> */}
-      {/* <meshStandardMaterial color={'hotpink'} /> */}
-    </mesh>
   )
 }

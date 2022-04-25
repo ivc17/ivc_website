@@ -11,6 +11,7 @@ export default function TextCarousel({
 }) {
   return (
     <Box
+      component="div"
       position="absolute"
       top={'50%'}
       left={0}
@@ -18,6 +19,7 @@ export default function TextCarousel({
       sx={{ transform: 'translateY(-50%)' }}
     >
       <Box
+        component="div"
         display="flex"
         alignItems={'center'}
         sx={{

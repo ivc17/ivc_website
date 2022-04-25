@@ -97,6 +97,11 @@ export const theme = {
 }
 
 export const override: any = {
+  MuiBox: {
+    defaultProps: {
+      component: 'div'
+    }
+  },
   MuiCssBaseline: {
     styleOverrides: {
       body: {

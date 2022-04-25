@@ -1,19 +1,22 @@
-import { Box } from '@mui/material'
+import Box from 'components/Box'
 import Frame from 'components/Frame'
+import { Suspense } from 'react'
 
 export default function Home() {
   return (
     <Box>
       <Box
         position="fixed"
-        top={'20vh'}
+        top={'0'}
         left={'0'}
         width="100vw"
-        height="80vh"
+        height="100vh"
         zIndex="-1"
-        sx={{ pointerEvents: 'none' }}
+        // sx={{ pointerEvents: 'none' }}
       >
-        <Frame />
+        <Suspense fallback={null}>
+          <Frame />
+        </Suspense>
       </Box>
     </Box>
   )

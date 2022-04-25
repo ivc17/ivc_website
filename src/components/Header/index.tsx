@@ -1,5 +1,5 @@
-import { Box, Button, styled, Typography } from '@mui/material'
-import { fontFamily } from '@mui/system'
+import { Button, styled } from '@mui/material'
+import Box from 'components/Box'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
 import TextCarousel from './TextCarousel'
 
@@ -10,17 +10,19 @@ const carouselText = [
   'FineArt'
 ]
 
-const StyledButton = styled(Button)({
-  display: 'block',
-  justifyContent: 'flex-start',
-  fontSize: 40,
-  '&:hover': {
-    background: '#ffffff',
-    width: '100%',
-    color: '#000000',
-    transition: '0.5s'
-  }
-})
+// const StyledButton = styled(Button)({
+//   display: 'block',
+//   justifyContent: 'flex-start',
+//   fontSize: 40,
+//   // userSelect: 'none',
+//   '&:hover': {
+//     background: '#ffffff',
+//     width: '100%',
+//     color: '#000000',
+//     transition: '0.5s'
+//   }
+// })
+
 export default function Header() {
   return (
     <Box position="fixed" top={'0'} left={'0'} width="100%">
@@ -67,12 +69,12 @@ export default function Header() {
         >
           <TextCarousel textList={carouselText} orientation="vertical" />
         </Box>
-        <Box padding={'20px 0 0 35px'}>
-          <Logo style={{ minHeight: '100px', height: '18vh' }} />
-          <StyledButton>Fine Art</StyledButton>
+        <Box padding={'60px 0 0 80px'}>
+          <Logo style={{ minHeight: '100px', height: '10vh' }} />
+          {/* <StyledButton>Fine Art</StyledButton>
           <StyledButton>Web</StyledButton>
           <StyledButton>Graphic Design</StyledButton>
-          <StyledButton>Photography</StyledButton>
+          <StyledButton>Photography</StyledButton> */}
         </Box>
       </Box>
     </Box>
