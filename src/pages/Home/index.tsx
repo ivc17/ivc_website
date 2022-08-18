@@ -21,10 +21,10 @@ export default function Home() {
           <Canvas
             shadows
             camera={{
-              position: [0, 0, -300],
+              position: [0, 0, 30],
               fov: 50,
-              near: -500,
-              far: 200
+              near: 1,
+              far: 1000
             }}
           >
             <hemisphereLight intensity={0.2} />
