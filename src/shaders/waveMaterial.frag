@@ -37,15 +37,15 @@ void main() {
 
   float isine = abs(sin(coord.x * 3.1415 * time));
   float icos = abs(cos(coord.y * 3.1415 * (10.0 - time)));
-  vec4 solidRed = vec4(isine / icos, coord.x, icos, 1.0);
+  vec4 solidRed = vec4(isine, coord.x, icos, 1.0);
 
-  float dist = distance(coord, vec2(0.5, 0.0));
-  float stepDist = step(time - 2.0, 1.0 - dist);
-  float smoothDist = smoothstep(time - 0.1, time + 0.1, dist);
-  vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
+  // float dist = distance(coord, vec2(0.5, 0.0));
+  // float stepDist = step(time - 2.0, 1.0 - dist);
+  // float smoothDist = smoothstep(time - 0.1, time + 0.1, dist);
+  // vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
   // color.r=dist;
   // color.b=stepDist;
-  color.g = smoothDist;
+  // color.g = smoothDist;
   gl_FragColor = solidRed;
   // fragColor = texture2D(uTexture,uv);
   // vec2 coords=uv;

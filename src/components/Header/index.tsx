@@ -43,8 +43,10 @@ export default function Header() {
           paddingLeft={'100px'}
           display="flex"
         >
-          <Button>About</Button>
-          <Button>All work</Button>
+          <Button sx={{ color: '#ffffff', fontWeight: 700 }} variant="text">
+            About
+          </Button>
+          <Button sx={{ color: '#ffffff', fontWeight: 700 }}>All work</Button>
           <Box flexGrow={1} overflow="hidden" position="relative">
             <TextCarousel
               textList={carouselText}

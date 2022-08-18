@@ -10,8 +10,8 @@ export default function Pineapple() {
   useFrame(() => {
     if (!mesh.current) return
     mesh.current.rotation.x = Math.PI / 2
-    mesh.current.rotation.z += 0.01
-    maerial.current.rotation.y += 0.01
+    mesh.current.rotation.z += 0.005
+    maerial.current.rotation.y += 0.005
   })
   return (
     <Suspense fallback={null}>
@@ -32,7 +32,7 @@ export default function Pineapple() {
             // thickness={1}
             {...{
               transmission: 0.7,
-              roughness: 0.4,
+              roughness: 0.5,
               reflectivity: 1,
               thickness: 0.6,
               attenuationTint: '#00dd00',
@@ -50,7 +50,7 @@ export default function Pineapple() {
         <Mesh
           material={<WaveMaterial />}
           position={[-0.3, 1, -1]}
-          args={[3.8, 3.8, 3.8]}
+          args={[3, 3, 3]}
         />
         <mesh
           position={[0, -3, 0]}

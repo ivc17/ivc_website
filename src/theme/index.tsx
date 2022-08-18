@@ -32,7 +32,8 @@ declare module '@mui/material/styles/createTheme' {
   }
 }
 const FONTS = {
-  title: 'serif!important'
+  title: 'sans-serif!important'
+  // content: 'sans-serif'
 }
 
 export const theme = {
@@ -49,6 +50,7 @@ export const theme = {
       dark: '#129026',
       contrastText: '#ffffff'
     },
+
     error: {
       main: '#FA0E0E',
       light: '#FA0E0E10'
