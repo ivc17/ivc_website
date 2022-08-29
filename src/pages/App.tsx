@@ -2,16 +2,19 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Box from 'components/Box'
 import Header from 'components/Header'
 import Home from 'pages/Home'
+import { SkyboxProvider } from 'context/SkyboxContext'
 
 function App() {
   return (
     <Box>
-      <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <SkyboxProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path={'*'} element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </SkyboxProvider>
     </Box>
   )
 }

@@ -16,7 +16,13 @@ export default function TextCarousel({
       top={'50%'}
       left={0}
       zIndex={(theme) => theme.zIndex.modal}
-      sx={{ transform: 'translateY(-50%)' }}
+      sx={{
+        transform: 'translateY(-50%)',
+        '& span': {
+          fontWeight: 900,
+          fontSize: 27
+        }
+      }}
     >
       <Box
         component="div"

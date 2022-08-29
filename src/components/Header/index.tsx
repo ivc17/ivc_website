@@ -1,7 +1,9 @@
-import { Button, styled } from '@mui/material'
+import { Button } from '@mui/material'
 import Box from 'components/Box'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
 import TextCarousel from './TextCarousel'
+import { useNavigate } from 'react-router-dom'
+import { routes } from 'constants/routes'
 
 const carouselText = [
   'FrontendDevelopment',
@@ -24,6 +26,8 @@ const carouselText = [
 // })
 
 export default function Header() {
+  const navigate = useNavigate()
+
   return (
     <Box position="fixed" top={'0'} left={'0'} width="100%">
       <Box position="relative">
@@ -40,13 +44,61 @@ export default function Header() {
           }}
           width="100%"
           height="35px"
-          paddingLeft={'100px'}
+          paddingLeft={'35px'}
           display="flex"
         >
-          <Button sx={{ color: '#ffffff', fontWeight: 700 }} variant="text">
-            About
-          </Button>
-          <Button sx={{ color: '#ffffff', fontWeight: 700 }}>All work</Button>
+          <Box
+            padding="0 80px"
+            display={'flex'}
+            alignItems="center"
+            gap={30}
+            height={100}
+            zIndex={5}
+            sx={{
+              background: '#000000'
+            }}
+          >
+            <Button
+              onClick={() => {
+                navigate(routes.about)
+              }}
+              sx={{
+                color: '#ffffff',
+                fontWeight: 700,
+                width: 100,
+                fontSize: 20
+              }}
+              variant="text"
+            >
+              About
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/gallery')
+              }}
+              sx={{
+                color: '#ffffff',
+                fontWeight: 700,
+                width: 100,
+                fontSize: 20
+              }}
+            >
+              All work
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/contact')
+              }}
+              sx={{
+                color: '#ffffff',
+                fontWeight: 700,
+                width: 100,
+                fontSize: 20
+              }}
+            >
+              Contact
+            </Button>
+          </Box>
           <Box flexGrow={1} overflow="hidden" position="relative">
             <TextCarousel
               textList={carouselText}
@@ -72,7 +124,15 @@ export default function Header() {
           <TextCarousel textList={carouselText} orientation="vertical" />
         </Box>
         <Box padding={'60px 0 0 80px'}>
-          <Logo style={{ minHeight: '100px', height: '10vh' }} />
+          <Button
+            onClick={() => {
+              navigate('/')
+            }}
+          >
+            {' '}
+            <Logo style={{ minHeight: '100px', height: '5vh' }} />
+          </Button>
+
           {/* <StyledButton>Fine Art</StyledButton>
           <StyledButton>Web</StyledButton>
           <StyledButton>Graphic Design</StyledButton>

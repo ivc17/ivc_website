@@ -4,8 +4,17 @@ import { Canvas } from '@react-three/fiber'
 import Pineapple from 'components/Frame/Pineapple'
 import Skybox from 'components/Skybox'
 import { Suspense } from 'react'
+import Chrometype from 'components/Chrometype/Chrometype'
+import CameraWork from 'components/CameraWork'
+import { useLocation } from 'react-router-dom'
+import { initCameraPosition } from 'constants/index'
+import useSkybox from 'hooks/useSkybox'
+import AboutPlane from 'components/Skybox/AboutPlane'
 
 export default function Home() {
+  const location = useLocation()
+  const { setPlane, leftPlane, backPlane, rightPlane } = useSkybox()
+
   return (
     <Box>
       <Box
@@ -21,21 +30,31 @@ export default function Home() {
           <Canvas
             shadows
             camera={{
-              position: [0, 0, 30],
+              position: initCameraPosition,
               fov: 50,
               near: 1,
               far: 1000
             }}
           >
-            <hemisphereLight intensity={0.2} />
-            <ambientLight intensity={0.1} />
+            {/* <AboutPlane setPlane={setPlane} /> */}
+            {/* <hemisphereLight intensity={0.2} />
+            <ambientLight intensity={0.1} /> 
             {/* <Pineapple /> */}
-            <OrbitControls
+            {/* <OrbitControls
               enablePan={true}
               enableZoom={true}
               enableRotate={true}
+            /> */}
+            <CameraWork
+              pathname={location.pathname}
+              aboutPlane={leftPlane}
+              galleryPlane={backPlane}
+              contactPlane={rightPlane}
             />
-            <Skybox />
+
+            <Chrometype pathname={location.pathname} />
+
+            <Skybox setPlane={setPlane} />
           </Canvas>
         </Suspense>
       </Box>

@@ -14,7 +14,7 @@ const fragmentShader = `
   uniform sampler2D uTexture;
 
   void main() {
-    vec2 repeat = vec2(2., 2.);
+    vec2 repeat = vec2(1., 1.);
     // To repeat the uvs we need to multiply them by a scalar
     // and then get the fractional part of it so they from 0 to 1
     vec2 uv = fract(vUv * repeat);
@@ -25,7 +25,7 @@ const fragmentShader = `
     //   gl_FragColor = vec4(1.0,0.95,0.01,1.0); // yellow
     // } else 
     
-    if(texture.x>0.5||texture.y>0.5||texture.z>0.5){
+    if(texture.x>0.5&&texture.y>0.5&&texture.z>0.5){
       gl_FragColor = vec4(0.,255.,255., 0.);
     }else{
       gl_FragColor = vec4(texture, 1.);

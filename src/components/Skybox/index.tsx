@@ -1,18 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import shaders from 'shaders/textMaterialShader'
 
 import { useFrame, useThree } from '@react-three/fiber'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
-import {
-  BoxGeometry,
-  Mesh,
-  MeshBasicMaterial,
-  PlaneGeometry,
-  Scene,
-  WebGLRenderer
-} from 'three'
+import { Camera, Mesh, MeshBasicMaterial, WebGLRenderer } from 'three'
+import useSkybox from 'hooks/useSkybox'
+import AboutPlane from './AboutPlane'
+import { SetPlane } from 'context/SkyboxContext'
+import GalleryPlane from './GalleryPlane'
+import ContactPlane from './ContactPlane'
 
 const fontLoader = new FontLoader()
 
@@ -48,23 +46,67 @@ them within a single large texture. Such a texture, that we call a bitmap font, 
  coordinates associated with them. Whenever you want to render a character, you select the
   corresponding glyph by rendering this section of the bitmap font to a 2D quad.`
 
-export default function Skybox() {
+export const setPlaneProps = (
+  plane: 'left' | 'right' | 'top' | 'bottom' | 'back',
+  mesh: Mesh,
+  camera: Camera,
+  setPlane: SetPlane
+) => {
+  const width = 100
+  const aspect = (camera as any).aspect
+  const height = 100 / aspect + (aspect > 0 ? 10 : 0)
+  const halfHeight = height / 2
+  setPlane(plane, mesh)
+
+  switch (plane) {
+    case 'left':
+      mesh.rotateY(Math.PI / 2)
+      mesh.position.set(-width / 2, 0, -height / 2)
+      mesh.geometry.scale(height, height, 0)
+      break
+    case 'right':
+      mesh.rotateY(-Math.PI / 2)
+      mesh.position.set(width / 2, 0, -halfHeight)
+      mesh.geometry.scale(height, height, 0)
+      break
+    case 'top':
+      mesh.rotateX(Math.PI / 2)
+      mesh.position.set(0, halfHeight, -halfHeight)
+      mesh.geometry.scale(width, width, 0)
+      break
+    case 'back':
+      mesh.position.set(0, 0, -height)
+      mesh.geometry.scale(width, height, 0)
+      break
+    default:
+      mesh.position.y = -halfHeight
+      mesh.position.z = -halfHeight
+      mesh.rotateX(-Math.PI / 2)
+      mesh.geometry.scale(width, width, 0)
+  }
+}
+
+export default function Skybox({
+  setPlane
+}: {
+  setPlane: (
+    direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
+    plane: Mesh | undefined
+  ) => void
+}) {
   const [textGeometry, setTextGeometry] = useState<TextGeometry | null>(null)
   const [renderer, setRenderer] = useState<null | WebGLRenderer>(null)
-  const leftPlaneRef = useRef<any>()
-  const backPlaneRef = useRef<any>()
-  const topPlaneRef = useRef<any>()
-  const bottomPlaneRef = useRef<any>()
+
   const boxSceneRef = useRef<any>()
-  // const renderer = useRef<WebGLRenderer>()
-  // const renderFn = useRef<() => void>()
+
   const { scene, camera } = useThree()
 
-  // useFrame(() => {
-  //   // const canvas = document.getElementById('testCanvas') as HTMLCanvasElement
-
-  //   renderFn.current && renderFn.current()
-  // })
+  useFrame(({ clock }) => {
+    boxSceneRef.current.position.x +=
+      (Math.cos(clock.elapsedTime) * Math.PI) / 1000
+    boxSceneRef.current.position.y +=
+      (Math.sin(clock.elapsedTime) * Math.PI) / 1000
+  })
 
   //plane
   useEffect(() => {
@@ -84,16 +126,6 @@ export default function Skybox() {
   useEffect(() => {
     if (!renderer) return
 
-    const box = scene.children.find(
-      ({ uuid }) => uuid && uuid === boxSceneRef.current
-    )
-    if (box) {
-      scene.remove(box)
-    }
-
-    const boxScene = new Scene()
-    boxSceneRef.current = boxScene.uuid
-
     const textMaterial = new THREE.ShaderMaterial({
       vertexShader: shaders.vert,
       fragmentShader: shaders.frag,
@@ -104,68 +136,33 @@ export default function Skybox() {
       }
     })
 
+    // for (let i = boxSceneRef.current.children.length - 1; i >= 0; i--) {
+    //   const obj = boxSceneRef.current.children[i]
+    //   boxSceneRef.current.remove(obj)
+    // }
+
+    const aspect = (camera as any).aspect
+
     const width = 100
-    const height = 100 / (camera as any).aspect
+    const height = 100 / aspect + (aspect > 0 ? 10 : 0)
+
     const halfHeight = height / 2
     const planeGeo = new THREE.PlaneGeometry(width, height)
-    const planeVer = new THREE.PlaneGeometry(height, height)
 
-    const planeTop = new THREE.Mesh(
-      planeGeo,
-      textMaterial
-      // new THREE.MeshPhongMaterial({ color: 0xffffff })
-    )
+    const planeTop = new THREE.Mesh(planeGeo, textMaterial)
     planeTop.position.y = halfHeight
     planeTop.position.z = -halfHeight
     planeTop.rotateX(Math.PI / 2)
-    topPlaneRef.current = planeTop
-    boxScene.add(planeTop)
+    setPlane('top', planeTop)
+    boxSceneRef.current.add(planeTop)
 
-    const planeBottom = new THREE.Mesh(
-      planeGeo,
-      textMaterial
-      // new THREE.MeshPhongMaterial({ color: 0xf01fff })
-    )
+    const planeBottom = new THREE.Mesh(planeGeo, textMaterial)
     planeBottom.position.y = -halfHeight
     planeBottom.position.z = -halfHeight
     planeBottom.rotateX(-Math.PI / 2)
-    bottomPlaneRef.current = planeBottom
-    boxScene.add(planeBottom)
+    setPlane('bottom', planeBottom)
+    boxSceneRef.current.add(planeBottom)
 
-    const planeBack = new THREE.Mesh(
-      planeGeo,
-      textMaterial
-      // new THREE.MeshPhongMaterial({ color: 0x7f7fff })
-    )
-    planeBack.material.side = THREE.DoubleSide
-    planeBack.position.z = -height
-    planeBack.position.y = 0
-    planeBack.position.x = 0
-    backPlaneRef.current = planeBack
-    boxScene.add(planeBack)
-
-    // const planeRight = new THREE.Mesh(
-    //   planeVer,
-    //   new THREE.MeshPhongMaterial({ color: 0x00ff00 })
-    // )
-    // planeRight.position.x = width / 2
-    // planeRight.position.y = 0
-    // planeRight.position.z = -halfHeight
-    // planeRight.rotateY(-Math.PI / 2)
-    // boxScene.add(planeRight)
-
-    const planeLeft = new THREE.Mesh(
-      planeVer,
-      textMaterial
-      // new THREE.MeshPhongMaterial({ color: 0xff0000 })
-    )
-    planeLeft.position.x = -width / 2
-    planeLeft.position.y = 0
-    planeLeft.position.z = -halfHeight
-    planeLeft.rotateY(Math.PI / 2)
-    boxScene.add(planeLeft)
-    leftPlaneRef.current = planeLeft
-    scene.add(boxScene)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera, scene, (camera as any).aspect, renderer])
 
@@ -179,7 +176,7 @@ export default function Skybox() {
     })
 
     renderer.setSize(1000, 1000)
-
+    console.log(<AboutPlane setPlane={setPlane} />)
     const rtScene = new THREE.Scene()
     rtScene.background = new THREE.Color('#ffffff') // changed color to visualize uv coords
 
@@ -221,11 +218,11 @@ export default function Skybox() {
 
     // renderFn.current = () => {
     renderer.render(rtScene, rtCamera)
-    if (leftPlaneRef.current) {
-      leftPlaneRef.current.material = new THREE.MeshBasicMaterial({
-        map: new THREE.CanvasTexture(renderer.domElement)
-      })
-    }
+    // if (leftPlaneRef.current) {
+    //   leftPlaneRef.current.material = new THREE.MeshBasicMaterial({
+    //     map: new THREE.CanvasTexture(renderer.domElement)
+    //   })
+    // }
     // backPlaneRef.current.material = new THREE.MeshBasicMaterial({
     //   map: new THREE.CanvasTexture(renderer.domElement)
     // })
@@ -240,22 +237,33 @@ export default function Skybox() {
     // renderFn.current()
 
     setRenderer(renderer)
-  }, [camera, scene, textGeometry])
+  }, [camera, scene, setPlane, textGeometry])
 
-  useEffect(() => {
-    if (!textGeometry) return
-    const width = 100
+  // useEffect(() => {
+  //   if (!textGeometry) return
+  //   const width = 100
 
-    const text = new THREE.Mesh(
-      textGeometry,
-      new MeshBasicMaterial({ color: '#000000' })
-    )
+  //   const text = new THREE.Mesh(
+  //     textGeometry,
+  //     new MeshBasicMaterial({ color: '#000000' })
+  //   )
 
-    text.position.set(width / 2, 40, -100)
-    text.rotateY(-Math.PI / 2)
-    text.scale.set(0.1, 0.1, 0)
-    scene.add(text)
-  }, [camera, scene, textGeometry])
+  //   text.position.set(width / 2, 40, -100)
+  //   text.rotateY(-Math.PI / 2)
+  //   text.scale.set(0.1, 0.1, 0)
+  //   scene.add(text)
+  // }, [camera, scene, textGeometry])
 
-  return <></>
+  console.log(boxSceneRef)
+
+  return (
+    <>
+      <scene ref={boxSceneRef}>
+        <GalleryPlane setPlane={setPlane} />
+        <AboutPlane setPlane={setPlane} />
+        <ContactPlane setPlane={setPlane} />
+      </scene>
+      {/* <AboutPlane setPlane={setPlane} /> */}
+    </>
+  )
 }
