@@ -32,10 +32,10 @@ export default function AboutPlane({ setPlane }: { setPlane: SetPlane }) {
 
   useFrame(({ clock }) => {
     renderFn.current?.(clock.elapsedTime)
-    if (ref.current && renderer) {
-      // console.log(ref.current.material)
-      texture.current = new THREE.CanvasTexture(renderer.domElement)
-    }
+    // if (ref.current && renderer) {
+    //   // console.log(ref.current.material)
+    //   texture.current = new THREE.CanvasTexture(renderer.domElement)
+    // }
   })
 
   //plane
@@ -63,7 +63,7 @@ export default function AboutPlane({ setPlane }: { setPlane: SetPlane }) {
         alphaToCoverage={true}
         uniforms={{
           uTime: { value: 0 },
-          uTexture: { value: texture.current }
+          uTexture: { value: new THREE.CanvasTexture(renderer.domElement) }
         }}
       />
     )
@@ -119,10 +119,10 @@ export default function AboutPlane({ setPlane }: { setPlane: SetPlane }) {
     text.scale.set(0.8, 0.8, 0)
     rtScene.add(text)
     renderer.render(rtScene, rtCamera)
-    renderFn.current = (elapsedTime: number) => {
-      text.position.y += elapsedTime
-      renderer.render(rtScene, rtCamera)
-    }
+    // renderFn.current = (elapsedTime: number) => {
+    //   text.position.y += elapsedTime
+    //   renderer.render(rtScene, rtCamera)
+    // }
     setRenderer(renderer)
   }, [camera, scene, textGeometry])
 

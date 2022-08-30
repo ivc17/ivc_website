@@ -56,6 +56,7 @@ export const setPlaneProps = (
   const aspect = (camera as any).aspect
   const height = 100 / aspect + (aspect > 0 ? 10 : 0)
   const halfHeight = height / 2
+  mesh.geometry.center()
   setPlane(plane, mesh)
 
   switch (plane) {
@@ -176,7 +177,6 @@ export default function Skybox({
     })
 
     renderer.setSize(1000, 1000)
-    console.log(<AboutPlane setPlane={setPlane} />)
     const rtScene = new THREE.Scene()
     rtScene.background = new THREE.Color('#ffffff') // changed color to visualize uv coords
 
@@ -253,8 +253,6 @@ export default function Skybox({
   //   text.scale.set(0.1, 0.1, 0)
   //   scene.add(text)
   // }, [camera, scene, textGeometry])
-
-  console.log(boxSceneRef)
 
   return (
     <>

@@ -13,7 +13,8 @@ import AboutPlane from 'components/Skybox/AboutPlane'
 
 export default function Home() {
   const location = useLocation()
-  const { setPlane, leftPlane, backPlane, rightPlane } = useSkybox()
+  const { setPlane, leftPlane, backPlane, rightPlane, cameraTarget } =
+    useSkybox()
 
   return (
     <Box>
@@ -36,7 +37,6 @@ export default function Home() {
               far: 1000
             }}
           >
-            {/* <AboutPlane setPlane={setPlane} /> */}
             {/* <hemisphereLight intensity={0.2} />
             <ambientLight intensity={0.1} /> 
             {/* <Pineapple /> */}
@@ -50,9 +50,13 @@ export default function Home() {
               aboutPlane={leftPlane}
               galleryPlane={backPlane}
               contactPlane={rightPlane}
+              cameraTarget={cameraTarget}
             />
 
-            <Chrometype pathname={location.pathname} />
+            <Chrometype
+              pathname={location.pathname}
+              cameraTarget={cameraTarget}
+            />
 
             <Skybox setPlane={setPlane} />
           </Canvas>

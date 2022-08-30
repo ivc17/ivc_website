@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import { Mesh } from 'three'
+import { Mesh, Vector3 } from 'three'
 
 export type SetPlane = (
   direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
@@ -12,21 +12,22 @@ interface SkyboxContextType {
   backPlane: Mesh | undefined
   topPlane: Mesh | undefined
   bottomPlane: Mesh | undefined
+  cameraTarget: Vector3
   setPlane: (
     direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
     plane: Mesh | undefined
   ) => void
 }
-
+const target = new Vector3(0, 0, 0)
 export const SkyboxContext = React.createContext<SkyboxContextType>({
   leftPlane: undefined,
   rightPlane: undefined,
   backPlane: undefined,
   topPlane: undefined,
   bottomPlane: undefined,
-  setPlane: () => {}
+  setPlane: () => {},
+  cameraTarget: target
 })
-
 export const SkyboxProvider = ({ children }: { children: React.ReactNode }) => {
   const [leftPlane, setLeftPlane] = useState<Mesh | undefined>(undefined)
   const [rightPlane, setRightPlane] = useState<Mesh | undefined>(undefined)
@@ -68,7 +69,8 @@ export const SkyboxProvider = ({ children }: { children: React.ReactNode }) => {
       backPlane,
       topPlane,
       bottomPlane,
-      setPlane
+      setPlane,
+      cameraTarget: target
     }),
     [backPlane, bottomPlane, leftPlane, rightPlane, setPlane, topPlane]
   )
