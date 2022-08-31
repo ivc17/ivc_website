@@ -1,21 +1,53 @@
 import { Suspense, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { WaveMaterial } from './WaveMesh'
+import { Vector3 } from 'three'
 
 export default function Pineapple() {
   const { nodes } = useGLTF('/models/pineapple.gltf') as any
   const mesh = useRef<any>()
   const maerial = useRef<any>()
+  const group = useRef<any>()
+  const vec = useRef(new Vector3())
+  const pos = useRef(new Vector3())
+
+  const { camera } = useThree()
+
   useFrame(() => {
     if (!mesh.current) return
     mesh.current.rotation.x = Math.PI / 2
     mesh.current.rotation.z += 0.005
     maerial.current.rotation.y += 0.005
+
+    vec.current.set(
+      -1 - 0.3,
+      1 - 0.3,
+      // -(1 - 1000 / window.innerWidth),
+      // 1 - 1000 / window.innerHeight,
+      1000
+    )
+    vec.current.unproject(camera)
+    vec.current.sub(camera.position).normalize()
+    var distance = (-20 - camera.position.z) / vec.current.z
+    pos.current
+      .copy(camera.position)
+      .add(vec.current.multiplyScalar(distance > 32 ? 32 : distance))
+    // group.current.position.set(pos.current)
+    // if (mesh.current) {
+    //   var scaleVector = new Vector3()
+    //   var scaleFactor = 10
+    //   var scale =
+    //     scaleVector
+    //       .subVectors(mesh.current.position, camera.position)
+    //       .length() / scaleFactor
+    //   mesh.current.scale.set(scale, scale, 1)
+    // }
   })
+
   return (
     <Suspense fallback={null}>
-      <group>
+      <scene ref={group} position={[0, 100, -2000]} scale={80}>
         <mesh
           ref={mesh}
           scale={0.5}
@@ -62,7 +94,7 @@ export default function Pineapple() {
           <shadowMaterial color="#000000" transparent opacity={0.3} />
           {/* <ShaderMaterial fragmentShader={noiseShader} /> */}
         </mesh>
-      </group>
+      </scene>
     </Suspense>
   )
 }

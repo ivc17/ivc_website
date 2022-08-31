@@ -8,10 +8,10 @@ import { initCameraPosition, cameraPositions } from 'constants/index'
 
 const maxWidth = 2440
 const minWidth = 300
-const maxScale = 300
-const minScale = 40
+const maxScale = 1500
+const minScale = 200
 
-const defaultPosition = new Vector3(1, 0, -30)
+const defaultPosition = new Vector3(-5, 0, 30)
 
 const unitScale = (maxScale - minScale) / (maxWidth - minWidth)
 
@@ -31,9 +31,7 @@ export default function Chrometype({
   // const light2 = useRef<any>()
   // const light3 = useRef<any>()
 
-  const vec = useRef(
-    new Vector3(500 / window.innerWidth, 500 / window.innerHeight, 0.1)
-  )
+  const vec = useRef(new Vector3())
   const pos = useRef(new Vector3())
 
   const { camera } = useThree()
@@ -61,22 +59,15 @@ export default function Chrometype({
         (Math.cos(1000 + clock.elapsedTime) * Math.PI) / 4000,
         0
       )
+      if (mesh.current) {
+        mesh.current.visible = true
+      }
     } else {
-      vec.current.set(
-        (1 / window.innerWidth) * 2,
-        (-1 / window.innerHeight) * 2,
-        1
-      )
-      vec.current.unproject(camera)
-      vec.current.sub(nextPosition).normalize()
-      var distance = (-20 - camera.position.z) / vec.current.z
-      pos.current.copy(nextPosition).add(vec.current.multiplyScalar(distance))
-      // pos.current.z = -40
-
-      // camera.quaternion.copy(rotation)
+      if (mesh.current) {
+        mesh.current.visible = false
+      }
     }
 
-    // mesh.current.rotation.x +=
     mesh.current?.lookAt(camera.position)
     mesh.current?.scale.lerp(new Vector3(nextScale, nextScale, nextScale), 0.05)
     mesh.current?.position.lerp(
@@ -90,12 +81,15 @@ export default function Chrometype({
       mesh.current.geometry.center()
       mesh.current.rotation.x = -0.3
     }
+    const resizeListener = () => {
+      setNextScale(resize())
+    }
 
-    resize()
+    resizeListener()
 
-    window.addEventListener('resize', resize)
+    window.addEventListener('resize', resizeListener)
     return () => {
-      window.removeEventListener('resize', resize)
+      window.removeEventListener('resize', resizeListener)
     }
   }, [resize])
 
@@ -107,14 +101,13 @@ export default function Chrometype({
     } else {
       setNextScale(minScale)
       const nextCameraPosition = cameraPositions[pathname] ?? initCameraPosition
-
       setNextPosition(nextCameraPosition)
     }
   }, [camera, cameraTarget, pathname, resize])
 
   return (
     <Suspense fallback={null}>
-      <CameraWorkMovement>
+      <CameraWorkMovement disable={pathname !== '/'}>
         <group>
           {/* <spotLight
           ref={light}

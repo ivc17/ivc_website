@@ -1,12 +1,13 @@
-import { useEffect, useMemo, useRef } from 'react'
-import * as THREE from 'three'
-import { useThree } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
+import * as ReactDOMServer from 'react-dom/server'
+import {} from 'three/examples/jsm/geometries/TextGeometry'
 import { Mesh, Scene } from 'three'
+import { SetPlane } from 'context/SkyboxContext'
 import { setPlaneProps } from 'utils/setPlaneProps'
-import { getPlaneArg } from 'utils/getPlaneArgs'
-import ReactDOMServer from 'react-dom/server'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { styled, Typography } from '@mui/material'
+import { getPlaneArg } from 'utils/getPlaneArgs'
+import { defaultVert, emptyFrag } from 'shaders/basicShaders'
 
 const AnimatedBox = styled('div')({
   '@keyframes pulsate': {
@@ -21,43 +22,32 @@ const AnimatedBox = styled('div')({
   position: 'absolute'
 })
 
-const textContent = `在3D的環境中可以把它當成視角, 我們可以給它定位、關注點, 也可以搭配相機的位置角度來達到畫面移動的效果, 在一般的情況下相機使用非常容易，我們只需要給他合理的定位以及目標即可。
+const textContent = `Expert knowledge of HTML/CSS/JavaScript/Browser
+Familiar with one of React/Vue/Svelte frameworks.
+Experience in accessibility, usability, and scalability
+Knowledge of web performance-optimizing
+Expert knowledge of HTML/CSS/JavaScript/Browser/NodeJS.
+Master in Code testability, readability, maintainability, 
+scalability, reusability, and modularization.
+Master in web performance-optimizing.
+Familiar with one of React/Vue/Svelte frameworks.
+Familiar with unit/UI/integration testing.
+Experience in building complete CI/CD.`
 
-我們有以下幾種預設相機可供選擇
-
-PerspectiveCamera
-OrthographicCamera
-StereoCamera
-CubeCamera
-一般情況中我們最常用的即是視野相機PerspectiveCamera
-相機都包含以下幾個屬性
-
-position 相機的位置
-up 相機的頂點
-lookAt 相機的關注目標`
-
-export default function GalleryPlane({
+export default function TopPlane({
   setPlane,
   cssScene
 }: {
-  setPlane: (
-    direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
-    plane: Mesh | undefined
-  ) => void
+  setPlane: SetPlane
   cssScene: Scene
 }) {
   const ref = useRef<Mesh>()
   const cssRef = useRef<CSS3DObject>()
-  const { camera } = useThree()
 
   useEffect(() => {
-    // if (ref.current) {
-    //   setPlaneProps('back', ref.current, setPlane)
-    // }
-
     const { height, width } = getPlaneArg()
 
-    const str = ReactDOMServer.renderToString(<Gallery />)
+    const str = ReactDOMServer.renderToString(<Top />)
 
     const element = document.createElement('div')
     element.innerHTML = str
@@ -67,11 +57,11 @@ export default function GalleryPlane({
 
     var obj = new CSS3DObject(element)
     cssRef.current = obj
-    cssScene.add(obj)
-  }, [setPlane, camera, cssScene])
+    cssScene.add(cssRef.current)
+  }, [cssScene])
 
   useEffect(() => {
-    setPlaneProps('back', ref.current, setPlane, cssRef.current)
+    setPlaneProps('top', ref.current, setPlane, cssRef.current)
   }, [cssScene, setPlane])
 
   return (
@@ -81,14 +71,16 @@ export default function GalleryPlane({
   )
 }
 
-function Gallery() {
+function Top() {
   return (
     <div
       style={{
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'flex-end'
       }}
     >
       <AnimatedBox>

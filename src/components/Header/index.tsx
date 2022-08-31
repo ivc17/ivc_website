@@ -2,8 +2,9 @@ import { Button } from '@mui/material'
 import Box from 'components/Box'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
 import TextCarousel from './TextCarousel'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routes'
+import useBreakpoint from 'hooks/useBreakpoints'
 
 const carouselText = [
   'FrontendDevelopment',
@@ -27,13 +28,14 @@ const carouselText = [
 
 export default function Header() {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const isDownMd = useBreakpoint()
 
   return (
-    <Box position="fixed" top={'0'} left={'0'} width="100%">
+    <Box position="fixed" top={'0'} left={'0'} width="100%" zIndex={10}>
       <Box position="relative">
         <Box
           sx={{
-            background: '#000000',
             color: '#ffffff',
             fontSize: 18,
             fontWeight: 900,
@@ -43,19 +45,21 @@ export default function Header() {
             }
           }}
           width="100%"
-          height="35px"
+          // height="35px"
           paddingLeft={'35px'}
           display="flex"
         >
           <Box
-            padding="0 80px"
+            padding={{ xs: '0 20px', md: '0 80px' }}
             display={'flex'}
             alignItems="center"
-            gap={30}
-            height={100}
+            gap={{ xs: 10, md: 30 }}
+            height={{ xs: 80, md: 100 }}
             zIndex={5}
             sx={{
-              background: '#000000'
+              background: '#000000',
+              position: 'relative',
+              fontSize: { xs: 14, md: 18 }
             }}
           >
             <Button
@@ -64,9 +68,7 @@ export default function Header() {
               }}
               sx={{
                 color: '#ffffff',
-                fontWeight: 700,
-                width: 100,
-                fontSize: 20
+                fontWeight: 700
               }}
               variant="text"
             >
@@ -78,9 +80,7 @@ export default function Header() {
               }}
               sx={{
                 color: '#ffffff',
-                fontWeight: 700,
-                width: 100,
-                fontSize: 20
+                fontWeight: 700
               }}
             >
               All work
@@ -91,15 +91,44 @@ export default function Header() {
               }}
               sx={{
                 color: '#ffffff',
-                fontWeight: 700,
-                width: 100,
-                fontSize: 20
+                fontWeight: 700
               }}
             >
               Contact
             </Button>
+            <Box
+              width={'100%'}
+              position="absolute"
+              top={{ xs: 100, md: 120 }}
+              left={0}
+            >
+              <Button
+                sx={{
+                  pointerEvents: pathname === '/' ? 'none' : 'auto',
+                  transition: '.5s',
+                  opacity: pathname === '/' ? 0 : 1,
+                  width: { xs: '100px', md: '70%' },
+                  background: '#000000'
+                }}
+                onClick={() => {
+                  navigate('/')
+                }}
+              >
+                <Logo style={{ width: '100%', strokeWidth: 5 }} />
+              </Button>
+
+              {/* <StyledButton>Fine Art</StyledButton>
+          <StyledButton>Web</StyledButton>
+          <StyledButton>Graphic Design</StyledButton>
+          <StyledButton>Photography</StyledButton> */}
+            </Box>
           </Box>
-          <Box flexGrow={1} overflow="hidden" position="relative">
+          <Box
+            flexGrow={1}
+            overflow={isDownMd ? 'visible' : 'hidden'}
+            position="relative"
+            sx={{ background: '#000000', height: { xs: 20, md: 35 } }}
+          >
             <TextCarousel
               textList={carouselText}
               orientation="horizontal"
@@ -109,7 +138,7 @@ export default function Header() {
         </Box>
 
         <Box
-          width="35px"
+          width={{ xs: 20, md: 35 }}
           height="100%"
           minHeight={'100vh'}
           mt="-40px"
@@ -122,21 +151,6 @@ export default function Header() {
           }}
         >
           <TextCarousel textList={carouselText} orientation="vertical" />
-        </Box>
-        <Box padding={'60px 0 0 80px'}>
-          <Button
-            onClick={() => {
-              navigate('/')
-            }}
-          >
-            {' '}
-            <Logo style={{ minHeight: '100px', height: '5vh' }} />
-          </Button>
-
-          {/* <StyledButton>Fine Art</StyledButton>
-          <StyledButton>Web</StyledButton>
-          <StyledButton>Graphic Design</StyledButton>
-          <StyledButton>Photography</StyledButton> */}
         </Box>
       </Box>
     </Box>

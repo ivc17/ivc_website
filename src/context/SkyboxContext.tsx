@@ -1,5 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import { Mesh, Vector3 } from 'three'
+import { Mesh, Scene, Vector3 } from 'three'
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
+const skyboxCssRenderer = new CSS3DRenderer()
 
 export type SetPlane = (
   direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
@@ -17,8 +20,11 @@ interface SkyboxContextType {
     direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
     plane: Mesh | undefined
   ) => void
+  cssScene: Scene
 }
 const target = new Vector3(0, 0, 0)
+const cssScene = new Scene()
+
 export const SkyboxContext = React.createContext<SkyboxContextType>({
   leftPlane: undefined,
   rightPlane: undefined,
@@ -26,8 +32,10 @@ export const SkyboxContext = React.createContext<SkyboxContextType>({
   topPlane: undefined,
   bottomPlane: undefined,
   setPlane: () => {},
-  cameraTarget: target
+  cameraTarget: target,
+  cssScene: cssScene
 })
+
 export const SkyboxProvider = ({ children }: { children: React.ReactNode }) => {
   const [leftPlane, setLeftPlane] = useState<Mesh | undefined>(undefined)
   const [rightPlane, setRightPlane] = useState<Mesh | undefined>(undefined)
@@ -70,7 +78,9 @@ export const SkyboxProvider = ({ children }: { children: React.ReactNode }) => {
       topPlane,
       bottomPlane,
       setPlane,
-      cameraTarget: target
+      cameraTarget: target,
+      skyboxCssRenderer,
+      cssScene
     }),
     [backPlane, bottomPlane, leftPlane, rightPlane, setPlane, topPlane]
   )

@@ -20,11 +20,13 @@ export default function TextCarousel({
         transform: 'translateY(-50%)',
         '& span': {
           fontWeight: 900,
-          fontSize: 27
+          fontSize: { xs: 10, md: 27 }
         }
       }}
     >
       <Box
+        mt={orientation === 'horizontal' ? -5 : 0}
+        ml={orientation === 'horizontal' ? 0 : -5}
         component="div"
         display="flex"
         alignItems={'center'}

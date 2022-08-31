@@ -25,6 +25,6 @@
     "src/components/Effect.js",
     "config-overrides.js",
     "src/components/Effects/blobEffecttsx"
-  ],
+, "src/components/Skybox/study3-stable"  ],
   "exclude": ["node_modules"]
 }

@@ -1,129 +1,101 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import * as THREE from 'three'
-import shaders from 'shaders/textMaterialShader'
-import { useThree } from '@react-three/fiber'
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
-import { Mesh, MeshBasicMaterial, WebGLRenderer } from 'three'
-import { setPlaneProps } from '.'
+import { useEffect, useRef } from 'react'
+import { Mesh, Scene } from 'three'
+import { setPlaneProps } from 'utils/setPlaneProps'
 import { SetPlane } from 'context/SkyboxContext'
+import { styled, Typography } from '@mui/material'
+import { getPlaneArg } from 'utils/getPlaneArgs'
+import ReactDOMServer from 'react-dom/server'
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 
-const fontLoader = new FontLoader()
-
-const textContent = `在3D的環境中可以把它當成視角, 我們可以給它定位、關注點, 也可以搭配相機的位置角度來達到畫面移動的效果, 在一般的情況下相機使用非常容易，我們只需要給他合理的定位以及目標即可。
-
-我們有以下幾種預設相機可供選擇
-
-PerspectiveCamera
-OrthographicCamera
-StereoCamera
-CubeCamera
-一般情況中我們最常用的即是視野相機PerspectiveCamera
-相機都包含以下幾個屬性
-
-position 相機的位置
-up 相機的頂點
-lookAt 相機的關注目標`
-
-export default function ContactPlane({ setPlane }: { setPlane: SetPlane }) {
-  const [textGeometry, setTextGeometry] = useState<TextGeometry | null>(null)
-  const [renderer, setRenderer] = useState<null | WebGLRenderer>(null)
-  const ref = useRef<Mesh>()
-  const { scene, camera } = useThree()
-
-  //plane
-  useEffect(() => {
-    fontLoader.load(
-      './fonts/helvetiker_regular.typeface.json',
-      function (font) {
-        let text = new TextGeometry(textContent, {
-          font: font,
-          size: 16,
-          height: 5
-        })
-        setTextGeometry(text)
-      }
-    )
-  }, [])
-
-  const material = useMemo(() => {
-    if (!renderer) return
-    return (
-      <shaderMaterial
-        vertexShader={shaders.vert}
-        fragmentShader={shaders.frag}
-        alphaToCoverage={true}
-        uniforms={{
-          uTime: { value: 0 },
-          uTexture: { value: new THREE.CanvasTexture(renderer.domElement) }
-        }}
-      />
-    )
-  }, [renderer])
-
-  useEffect(() => {
-    if (!textGeometry) return
-    var canvas = document.createElement('canvas')
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas as HTMLCanvasElement,
-      alpha: true
-    })
-
-    renderer.setSize(1000, 1000)
-
-    const rtScene = new THREE.Scene()
-    rtScene.background = new THREE.Color('#ffffff') // changed color to visualize uv coords
-
-    // const fov = 75
-    // const aspect = 2 // the canvas default
-    // const near = 0.1
-    // const far = 5
-    // const rtCamera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-    // rtCamera.position.z = 3
-    // const width = 10
-    // const height = 100 / (camera as any).aspect
-
-    const halfFrustumSize = 350
-    const rtCamera = new THREE.OrthographicCamera(
-      -halfFrustumSize,
-      halfFrustumSize,
-      halfFrustumSize,
-      -halfFrustumSize
-      // (0.5 * frustumSize * aspect) / -2,
-      // (0.5 * frustumSize * aspect) / 2,
-      // frustumSize / 2,
-      // frustumSize / -2
-      // 150,
-      // 0.1
-    )
-
-    const cameraOrthoHelper = new THREE.CameraHelper(rtCamera)
-    rtScene.add(cameraOrthoHelper)
-
-    // Create text mesh with font geometry and material
-    const text = new THREE.Mesh(
-      textGeometry,
-      new MeshBasicMaterial({ color: '#000000' })
-    )
-
-    text.position.set(-350, 300, -20)
-    text.scale.set(0.8, 0.8, 0)
-    rtScene.add(text)
-    renderer.render(rtScene, rtCamera)
-    setRenderer(renderer)
-  }, [camera, scene, textGeometry])
-
-  useEffect(() => {
-    if (ref.current) {
-      setPlaneProps('right', ref.current, camera, setPlane)
+const AnimatedBox = styled('div')({
+  '@keyframes pulsate': {
+    from: {
+      transform: 'translateY(0)'
+    },
+    to: {
+      transform: 'translateY(-25%)'
     }
-  }, [setPlane, camera])
+  },
+  animation: 'pulsate 10s infinite linear',
+  position: 'absolute'
+})
+
+const textContent = `At some stage of your graphics adventures you will want to draw text in OpenGL. 
+Contrary to what you may expect, getting a simple string to render on screen is 
+all but easy with a low-level API like OpenGL. 
+If you don't care about rendering more than 128 different same-sized characters, 
+then it's probably not too difficult. 
+Things are getting difficult as soon as each character has a different width, height, 
+and margin. Based on where you live, you may also need more than 128 characters, and 
+what if you want to express special symbols for like mathematical expressions or sheet music symbols, 
+and what about rendering text from top to bottom? 
+Once you think about all these complicated matters of text, it wouldn't surprise you 
+that this probably doesn't belong in a low-level API like OpenGL.
+
+Since there is no support for text capabilities within OpenGL, it is up to us 
+to define a system for rendering text to the screen. There are no graphical primitives 
+for text characters, we have to get creative. Some example techniques are: drawing letter
+ shapes via GL_LINES, create 3D meshes of letters, or render character textures to 2D quads 
+ in a 3D environment.
+`
+
+export default function ContactPlane({
+  setPlane,
+  cssScene
+}: {
+  setPlane: SetPlane
+  cssScene: Scene
+}) {
+  const ref = useRef<Mesh>()
+  const cssRef = useRef<CSS3DObject>()
+
+  useEffect(() => {
+    const { height, width } = getPlaneArg()
+
+    const str = ReactDOMServer.renderToString(<Gallery />)
+
+    const element = document.createElement('div')
+    element.innerHTML = str
+    element.style.width = width + 'px'
+    element.style.height = height + 'px'
+    element.style.boxSizing = 'border-box'
+
+    var obj = new CSS3DObject(element)
+    cssRef.current = obj
+    cssScene.add(obj)
+  }, [cssScene, setPlane])
+
+  useEffect(() => {
+    setPlaneProps('right', ref.current, setPlane, cssRef.current)
+  }, [cssScene, setPlane])
 
   return (
-    <mesh ref={ref} position={[0, 0, 0]}>
+    <mesh ref={ref} position={[0, 0, 0]} visible={false}>
       <planeGeometry args={[1, 1]} />
-      {material}
     </mesh>
+  )
+}
+
+function Gallery() {
+  return (
+    <div
+      id="contact"
+      style={{
+        height: '100%',
+        width: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center'
+      }}
+    >
+      <AnimatedBox>
+        <Typography textAlign={'center'} fontSize={'28px'}>
+          {textContent}
+          {textContent}
+          {textContent}
+        </Typography>
+      </AnimatedBox>
+    </div>
   )
 }
