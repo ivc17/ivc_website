@@ -2,7 +2,7 @@ import Box from 'components/Box'
 import { Canvas } from '@react-three/fiber'
 import Pineapple from 'components/Frame/Pineapple'
 import Skybox from 'components/Skybox'
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import Chrometype from 'components/Chrometype/Chrometype'
 import CameraWork from 'components/CameraWork'
 import { useLocation } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { defaultZoom, initCameraPosition } from 'constants/index'
 import useSkybox from 'hooks/useSkybox'
 import SkyboxCSSRender from './SkyboxCssRenderer'
 import useBreakpoint from 'hooks/useBreakpoints'
-import { routes } from 'constants/routes'
+import ContactPage from 'pages/Contact'
 
 export default function Home() {
   const location = useLocation()
@@ -20,6 +20,7 @@ export default function Home() {
 
   return (
     <>
+      <ContactPage />
       <Box>
         <Box position="fixed" top={'0'} left={'0'} width="100vw" height="100vh">
           <Suspense fallback={null}>

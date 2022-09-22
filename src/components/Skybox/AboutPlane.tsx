@@ -7,7 +7,6 @@ import { setPlaneProps } from 'utils/setPlaneProps'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { styled, Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
-import { defaultVert, emptyFrag } from 'shaders/basicShaders'
 
 const AnimatedBox = styled('div')({
   '@keyframes pulsate': {

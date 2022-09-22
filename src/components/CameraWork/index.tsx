@@ -6,7 +6,6 @@ import {
   initCameraPosition
 } from 'constants/index'
 import { routes } from 'constants/routes'
-import useBreakpoint from 'hooks/useBreakpoints'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Group, MathUtils, Mesh, Vector3 } from 'three'
 

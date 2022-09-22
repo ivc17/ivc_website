@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
-import * as THREE from 'three'
+import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Mesh, Scene } from 'three'
 import { setPlaneProps } from 'utils/setPlaneProps'

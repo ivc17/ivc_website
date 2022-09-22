@@ -31,7 +31,7 @@ export default function Chrometype({
   // const light2 = useRef<any>()
   // const light3 = useRef<any>()
 
-  const vec = useRef(new Vector3())
+  // const vec = useRef(new Vector3())
   const pos = useRef(new Vector3())
 
   const { camera } = useThree()

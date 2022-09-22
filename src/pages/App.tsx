@@ -6,16 +6,18 @@ import { SkyboxProvider } from 'context/SkyboxContext'
 
 function App() {
   return (
-    <Box>
-      <SkyboxProvider>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path={'*'} element={<Home />} />
-          </Routes>
-        </BrowserRouter>
-      </SkyboxProvider>
-    </Box>
+    <>
+      <Box>
+        <SkyboxProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path={'*'} element={<Home />} />
+            </Routes>
+          </BrowserRouter>
+        </SkyboxProvider>
+      </Box>
+    </>
   )
 }
 
