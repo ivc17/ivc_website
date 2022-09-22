@@ -28,6 +28,6 @@ module.exports = function override(config, env) {
   //   ]
   // })
 
-  console.debug(config)
+  // console.debug(config)
   return config
 }
