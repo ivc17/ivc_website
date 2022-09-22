@@ -22,17 +22,15 @@ const AnimatedBox = styled('div')({
   position: 'absolute'
 })
 
-const textContent = `Expert knowledge of HTML/CSS/JavaScript/Browser
-Familiar with one of React/Vue/Svelte frameworks.
-Experience in accessibility, usability, and scalability
-Knowledge of web performance-optimizing
-Expert knowledge of HTML/CSS/JavaScript/Browser/NodeJS.
-Master in Code testability, readability, maintainability, 
-scalability, reusability, and modularization.
-Master in web performance-optimizing.
-Familiar with one of React/Vue/Svelte frameworks.
-Familiar with unit/UI/integration testing.
-Experience in building complete CI/CD.`
+const textContent = `IVC17,  a Taipei based creative web developer/designer
+
+that loves the digital space, and is all about being experimental  and create crazy visuals in the virtual space. 
+
+Experienced in both web2/web3 web with particular interest in NFTs.
+
+Mostly work with code but occasionally other mediums too. 
+
+I’m always looking for next exciting project, drop me a message here___ If you’ have any cool ideas that wants to be carried out. `
 
 export default function AboutPlane({
   setPlane,
@@ -91,10 +89,15 @@ function About() {
       }}
     >
       <AnimatedBox>
-        <Typography textAlign={'center'} fontSize={'28px'}>
+        <Typography textAlign={'center'} fontSize={'20px'} padding="20px">
           {textContent}
+          <br />
           {textContent}
+          <br />
           {textContent}
+          <br />
+          {textContent}
+          <br />
         </Typography>
       </AnimatedBox>
     </div>
