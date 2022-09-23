@@ -85,7 +85,8 @@ export const theme = {
   },
   width: {
     sidebar: '250px',
-    maxContent: '1110px'
+    maxContent: '1440px',
+    minContent: '300'
   },
   shape: {
     border: '1px solid',

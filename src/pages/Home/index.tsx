@@ -1,6 +1,6 @@
 import Box from 'components/Box'
 import { Canvas } from '@react-three/fiber'
-import Pineapple from 'components/Frame/Pineapple'
+// import Pineapple from 'components/Pineapple/Pineapple'
 import Skybox from 'components/Skybox'
 import { Suspense } from 'react'
 import Chrometype from 'components/Chrometype/Chrometype'
@@ -11,15 +11,20 @@ import useSkybox from 'hooks/useSkybox'
 import SkyboxCSSRender from './SkyboxCssRenderer'
 import useBreakpoint from 'hooks/useBreakpoints'
 import ContactPage from 'pages/Contact'
+import AboutPage from 'pages/About'
+import GalleryPage from 'pages/Gallery'
+// import BackGlass from 'components/BackGlass'
 
 export default function Home() {
   const location = useLocation()
   const { setPlane, leftPlane, topPlane, rightPlane, cameraTarget, cssScene } =
     useSkybox()
-  const isDownMd = useBreakpoint()
+  const isDownMd = useBreakpoint('md')
 
   return (
     <>
+      <GalleryPage />
+      <AboutPage />
       <ContactPage />
       <Box>
         <Box position="fixed" top={'0'} left={'0'} width="100vw" height="100vh">
@@ -37,7 +42,8 @@ export default function Home() {
               <SkyboxCSSRender scene={cssScene} />
               <hemisphereLight intensity={0.2} />
               <ambientLight intensity={0.1} />
-              <Pineapple />
+              {/* <Pineapple /> */}
+              {/* <BackGlass /> */}
               {/* <OrbitControls
               enablePan={true}
               enableZoom={true}
@@ -56,7 +62,11 @@ export default function Home() {
                 pathname={location.pathname}
                 cameraTarget={cameraTarget}
               />
-              <Skybox setPlane={setPlane} cssScene={cssScene} />
+              <Skybox
+                setPlane={setPlane}
+                cssScene={cssScene}
+                isDownMd={isDownMd}
+              />
             </Canvas>
           </Suspense>
         </Box>
@@ -70,6 +80,13 @@ export default function Home() {
           zIndex: -1
         }}
         sx={{
+          // '&:after': {
+          //   content: '""',
+          //   width: '100%',
+          //   height: '100%',
+          //   background: '#00000020',
+
+          // },
           '& .hidden': {
             opacity: 0
           }

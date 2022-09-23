@@ -1,3 +1,4 @@
+import { debounce } from '@mui/material'
 import { useThree } from '@react-three/fiber'
 import { useEffect } from 'react'
 import {
@@ -43,29 +44,33 @@ import {
 export default function SkyboxCSSRender({ scene }: { scene: Scene }) {
   const { camera } = useThree()
   useEffect(() => {
-    if (!camera || !scene) return
+    const wrapper = document.querySelector('#wrapper')
+    if (!camera || !scene || !wrapper) return
     const renderer = new CSS3DRenderer()
-
-    renderer.domElement.style.position = 'fixed'
-    renderer.domElement.style.top = '0'
-    renderer.domElement.style.height = '100%'
-    renderer.domElement.style.width = '100%'
-    document.querySelector('#wrapper')?.appendChild(renderer.domElement)
-
+    if (!wrapper.children.length) {
+      renderer.domElement.style.position = 'fixed'
+      renderer.domElement.style.top = '0'
+      renderer.domElement.style.height = '100%'
+      renderer.domElement.style.width = '100%'
+      wrapper.appendChild(renderer.domElement)
+    }
     function animate() {
       requestAnimationFrame(animate)
       renderer.render(scene, camera)
     }
 
     function onWindowResize() {
+      if (!wrapper) return
       renderer.setSize(window.innerWidth, window.innerHeight)
     }
-    window.addEventListener('resize', onWindowResize)
+    const resizeFn = debounce(onWindowResize, 500)
+    window.addEventListener('resize', resizeFn)
     onWindowResize()
     animate()
 
     return () => {
-      window.removeEventListener('resize', onWindowResize)
+      wrapper.innerHTML = ''
+      window.removeEventListener('resize', resizeFn)
     }
   }, [camera, scene])
 

@@ -29,7 +29,7 @@ export function CameraWorkMovement({
       )
       ref.current.rotation.x = MathUtils.lerp(
         ref.current.rotation.x,
-        (state.mouse.y * Math.PI) / divider,
+        -(state.mouse.y * Math.PI) / divider,
         0.05
       )
     }
@@ -39,7 +39,7 @@ export function CameraWorkMovement({
 }
 
 export default function CameraWork({
-  divider = 10,
+  divider = 100,
   pathname,
   aboutPlane,
   galleryPlane,
@@ -61,25 +61,29 @@ export default function CameraWork({
     useState(initCameraPosition)
 
   useFrame((state: RootState) => {
-    pathChange(state, pathname)
+    pathChange(state, pathname, state.clock.elapsedTime)
   })
 
   const pathChange = useCallback(
-    (state: RootState, pathname) => {
+    (state: RootState, pathname, time) => {
       camera.lookAt(cameraTarget)
       cameraTarget.lerp(nextPosition, 0.05)
       camera.position.lerp(nextCameraPosition, 0.05)
 
       if (pathname === '/') {
+        // console.log(MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1))
         camera.rotation.y = MathUtils.lerp(
           camera.rotation.y,
           (state.mouse.x * Math.PI) / divider,
-          0.05
+          // 0.05
+          MathUtils.smoothstep(time, -1, 1)
         )
         camera.rotation.x = MathUtils.lerp(
           camera.rotation.x,
-          (state.mouse.y * Math.PI) / divider,
-          0.05
+          -((state.mouse.y * Math.PI) / divider) * 1.5,
+          // 0.05
+          MathUtils.smoothstep(time, -1, 1)
+          // MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1)
         )
       }
     },

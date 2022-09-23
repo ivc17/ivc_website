@@ -7,7 +7,8 @@ export const setPlaneProps = (
   plane: 'left' | 'right' | 'top' | 'bottom' | 'back',
   mesh: Mesh | undefined,
   setPlane: SetPlane | undefined,
-  cssObj?: CSS3DObject
+  cssObj?: CSS3DObject,
+  isDownMd?:boolean
 ) => {
   if (!mesh) return
   const { width, height, halfHeight } = getPlaneArg()
@@ -39,9 +40,9 @@ export const setPlaneProps = (
       cssObj?.position.set(0, halfHeight, -halfHeight)
       break
     case 'back':
-      mesh.position.set(0, 0, -height)
+      mesh.position.set(0, 0, -height-(isDownMd?0:70))
       mesh.geometry.scale(width, height, 0)
-      cssObj?.position.set(0, 0, -height)
+      cssObj?.position.set(0, 0, -height-(isDownMd?0:70))
       break
     default:
       mesh.position.set(0, -halfHeight, -halfHeight)

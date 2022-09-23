@@ -5,33 +5,12 @@ import { Mesh, Scene } from 'three'
 import { SetPlane } from 'context/SkyboxContext'
 import { setPlaneProps } from 'utils/setPlaneProps'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
-import { styled, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
+import { GalleryContent } from 'pages/Gallery'
+import { AnimatedBox } from './AnimatedBox'
 
-const AnimatedBox = styled('div')({
-  '@keyframes pulsate': {
-    from: {
-      transform: 'translateY(0)'
-    },
-    to: {
-      transform: 'translateY(-25%)'
-    }
-  },
-  animation: 'pulsate 10s infinite linear',
-  position: 'absolute'
-})
-
-const textContent = `Expert knowledge of HTML/CSS/JavaScript/Browser
-Familiar with one of React/Vue/Svelte frameworks.
-Experience in accessibility, usability, and scalability
-Knowledge of web performance-optimizing
-Expert knowledge of HTML/CSS/JavaScript/Browser/NodeJS.
-Master in Code testability, readability, maintainability, 
-scalability, reusability, and modularization.
-Master in web performance-optimizing.
-Familiar with one of React/Vue/Svelte frameworks.
-Familiar with unit/UI/integration testing.
-Experience in building complete CI/CD.`
+const textContent = ReactDOMServer.renderToString(<GalleryContent />)
 
 export default function TopPlane({
   setPlane,
@@ -64,8 +43,9 @@ export default function TopPlane({
   }, [cssScene, setPlane])
 
   return (
-    <mesh ref={ref} position={[0, 0, 0]} visible={false}>
+    <mesh ref={ref} position={[0, 0, 0]} visible={true}>
       <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial color="red" />
     </mesh>
   )
 }
@@ -84,9 +64,36 @@ function Top() {
     >
       <AnimatedBox>
         <Typography textAlign={'center'} fontSize={'28px'}>
-          {textContent}
-          {textContent}
-          {textContent}
+          <div
+            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+            style={{
+              height: 'max-content'
+            }}
+          />
+        </Typography>
+        <Typography textAlign={'center'} fontSize={'28px'}>
+          <div
+            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+            style={{
+              height: 'max-content'
+            }}
+          />
+        </Typography>
+        <Typography textAlign={'center'} fontSize={'28px'}>
+          <div
+            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+            style={{
+              height: 'max-content'
+            }}
+          />
+        </Typography>
+        <Typography textAlign={'center'} fontSize={'28px'}>
+          <div
+            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+            style={{
+              height: 'max-content'
+            }}
+          />
         </Typography>
       </AnimatedBox>
     </div>

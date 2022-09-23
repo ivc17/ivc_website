@@ -47,7 +47,7 @@ export default function Pineapple() {
 
   return (
     <Suspense fallback={null}>
-      <scene ref={group} position={[0, 100, -2000]} scale={80}>
+      <scene ref={group} position={[0, -800, -2500]} scale={80}>
         <mesh
           ref={mesh}
           scale={0.5}
@@ -63,7 +63,7 @@ export default function Pineapple() {
             // transmission={1}
             // thickness={1}
             {...{
-              transmission: 0.7,
+              transmission: 0.5,
               roughness: 0.5,
               reflectivity: 1,
               thickness: 0.6,

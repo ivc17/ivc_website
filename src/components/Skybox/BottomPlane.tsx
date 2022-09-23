@@ -1,25 +1,12 @@
 import { useEffect, useRef } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import {} from 'three/examples/jsm/geometries/TextGeometry'
 import { Mesh, Scene } from 'three'
 import { SetPlane } from 'context/SkyboxContext'
 import { setPlaneProps } from 'utils/setPlaneProps'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
-import { styled, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
-
-const AnimatedBox = styled('div')({
-  '@keyframes pulsate': {
-    from: {
-      transform: 'translateY(0)'
-    },
-    to: {
-      transform: 'translateY(-25%)'
-    }
-  },
-  animation: 'pulsate 10s infinite linear',
-  position: 'absolute'
-})
+import { AnimatedBox } from './AnimatedBox'
 
 const textContent = `Expert knowledge of HTML/CSS/JavaScript/Browser
 Familiar with one of React/Vue/Svelte frameworks.

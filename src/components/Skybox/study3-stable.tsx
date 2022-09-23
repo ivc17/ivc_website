@@ -9,7 +9,7 @@ import { Camera, Mesh, MeshBasicMaterial, Scene, WebGLRenderer } from 'three'
 import useSkybox from 'hooks/useSkybox'
 import AboutPlane from './AboutPlane'
 import { SetPlane } from 'context/SkyboxContext'
-import GalleryPlane from './GalleryPlane'
+import GalleryPlane from './BackPlane'
 import ContactPlane from './ContactPlane'
 
 const fontLoader = new FontLoader()

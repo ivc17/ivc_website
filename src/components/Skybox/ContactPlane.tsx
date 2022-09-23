@@ -2,24 +2,12 @@ import React, { useEffect, useRef } from 'react'
 import { Mesh, Scene } from 'three'
 import { setPlaneProps } from 'utils/setPlaneProps'
 import { SetPlane } from 'context/SkyboxContext'
-import { styled, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
 import ReactDOMServer from 'react-dom/server'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import Box from 'components/Box'
-
-const AnimatedBox = styled('div')({
-  '@keyframes pulsate': {
-    from: {
-      transform: 'translateY(0)'
-    },
-    to: {
-      transform: 'translateY(-25%)'
-    }
-  },
-  animation: 'pulsate 10s infinite linear',
-  position: 'absolute'
-})
+import { AnimatedBox } from './AnimatedBox'
 
 const textContent = `email: ivc1741@gmail.com     github: ivc17      
 `
@@ -70,12 +58,10 @@ function Contact() {
         width: '100%',
         overflow: 'hidden',
         position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        display: 'flex'
       }}
     >
-      <AnimatedBox>
+      <AnimatedBox direction="downward">
         <Box display="grid">
           <div style={{ display: 'flex' }}>
             <Typography
@@ -83,7 +69,7 @@ function Contact() {
               fontSize={'18px'}
               style={{ whiteSpace: 'pre-wrap' }}
             >
-              {Array.from(Array(30).keys()).map((_, idx) => (
+              {Array.from(Array(60).keys()).map((_, idx) => (
                 <React.Fragment key={idx}>{textContent}</React.Fragment>
               ))}
             </Typography>
@@ -92,7 +78,7 @@ function Contact() {
               fontSize={'18px'}
               style={{ whiteSpace: 'pre-wrap' }}
             >
-              {Array.from(Array(30).keys()).map((_, idx) => (
+              {Array.from(Array(60).keys()).map((_, idx) => (
                 <React.Fragment key={idx}>{textContent}</React.Fragment>
               ))}
             </Typography>

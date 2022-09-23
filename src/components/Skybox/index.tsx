@@ -2,20 +2,22 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Mesh, Scene } from 'three'
 import AboutPlane from './AboutPlane'
-import GalleryPlane from './GalleryPlane'
+import BackPlane from './BackPlane'
 import ContactPlane from './ContactPlane'
 import TopPlane from './TopPlane'
 import BottomPlane from './BottomPlane'
 
 export default function Skybox({
   setPlane,
-  cssScene
+  cssScene,
+  isDownMd
 }: {
   setPlane: (
     direction: 'left' | 'right' | 'top' | 'bottom' | 'back',
     plane: Mesh | undefined
   ) => void
   cssScene: Scene
+  isDownMd?: boolean
 }) {
   const boxSceneRef = useRef<any>()
 
@@ -29,7 +31,11 @@ export default function Skybox({
   return (
     <>
       <scene ref={boxSceneRef}>
-        <GalleryPlane setPlane={setPlane} cssScene={cssScene} />
+        <BackPlane
+          setPlane={setPlane}
+          cssScene={cssScene}
+          isDownMd={isDownMd}
+        />
         <AboutPlane setPlane={setPlane} cssScene={cssScene} />
         <ContactPlane setPlane={setPlane} cssScene={cssScene} />
         <TopPlane setPlane={setPlane} cssScene={cssScene} />
