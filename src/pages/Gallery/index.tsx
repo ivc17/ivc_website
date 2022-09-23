@@ -3,7 +3,6 @@ import {
   keyframes,
   styled,
   Typography,
-  Modal,
   Dialog,
   useTheme
 } from '@mui/material'
