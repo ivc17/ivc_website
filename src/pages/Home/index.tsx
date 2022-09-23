@@ -13,6 +13,7 @@ import useBreakpoint from 'hooks/useBreakpoints'
 import ContactPage from 'pages/Contact'
 import AboutPage from 'pages/About'
 import GalleryPage from 'pages/Gallery'
+import SingleWork from 'pages/SingleWork'
 // import BackGlass from 'components/BackGlass'
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
       <GalleryPage />
       <AboutPage />
       <ContactPage />
+      <SingleWork />
       <Box>
         <Box position="fixed" top={'0'} left={'0'} width="100vw" height="100vh">
           <Suspense fallback={null}>

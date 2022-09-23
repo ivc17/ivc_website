@@ -21,14 +21,13 @@ export default function ContactPage() {
         sx={{
           margin: '0 auto',
           fontWeight: 900,
-          '& p': {
+          '& p, .p': {
             fontWeight: 900,
             background: '#ffffff',
             border: '1px solid #000000',
             padding: '10px 20px',
             width: 'max-content'
-          },
-          '& *': {}
+          }
         }}
         padding={{ xs: '40px 10px', md: '60px 20px' }}
         display="grid"
@@ -40,20 +39,8 @@ export default function ContactPage() {
           display="grid"
           gap={{ xs: 35, md: 40 }}
           sx={{
-            '& p': {
+            '& p, .p': {
               fontSize: { xs: 18, md: 30 }
-              // '& span, >p': {
-              //   fontWeight: 900,
-              //   background: '#ffffff',
-              //   border: '1px solid #000000',
-              //   padding: '10px 20px',
-              //   width: 'max-content',
-              //   lineHeight: 2.3,
-              //   fontSize: { xs: 18, md: 26 }
-              // },
-            },
-            '& span': {
-              fontSize: { xs: 18, md: 28 }
             },
             '& *': {
               textOverflow: 'break-all'
@@ -63,7 +50,13 @@ export default function ContactPage() {
         >
           <Box>
             <Typography mb={5}>EMAIL:</Typography>
-            <Typography display={'inline-flex'} gap={10} alignItems="center">
+            <Typography
+              display={'inline-flex'}
+              gap={10}
+              alignItems="center"
+              component={'div'}
+              className="p"
+            >
               ivc1741@gmail.com
               <Copy toCopy="ivc1741@gmail.com" />
             </Typography>
@@ -78,8 +71,17 @@ export default function ContactPage() {
           </Box>
           <Box>
             <Typography mb={5}> WEBSITE:</Typography>
-            <Typography display={'inline-flex'} gap={10} alignItems="center">
-              <ExternalLink href="https://ivc17.github.io/" underline="always">
+            <Typography
+              display={'inline-flex'}
+              gap={10}
+              alignItems="center"
+              component={'div'}
+            >
+              <ExternalLink
+                href="https://ivc17.github.io/"
+                underline="always"
+                className="p"
+              >
                 https://ivc17.github.io/
               </ExternalLink>
               <Copy toCopy="https://ivc17.github.io/" />

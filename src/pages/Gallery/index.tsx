@@ -113,10 +113,10 @@ export default function GalleryPage() {
               marginTop: -1,
               marginLeft: -1
             },
-            '&>div:nth-child(-n+3)': {
+            '&>div:nth-of-type(-n+3)': {
               marginTop: 0
             },
-            '&>div:nth-child(3n)': {
+            '&>div:nth-of-type(3n)': {
               marginLeft: 0
             }
           }}
