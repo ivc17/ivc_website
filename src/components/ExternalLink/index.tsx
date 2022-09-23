@@ -39,9 +39,9 @@ export default function ExternalLink({
       style={style}
       underline={underline ?? 'none'}
       sx={{
-        color: '#ffffff',
+        color: '#000000',
         '&:hover, :active': {
-          textShadow: '0 0 5px #ffffff'
+          textShadow: '0 0 5px #00000020'
         },
         ...sx
       }}

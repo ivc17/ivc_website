@@ -94,6 +94,18 @@ function Gallery() {
             height: 'max-content'
           }}
         />
+        <div
+          dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+          style={{
+            height: 'max-content'
+          }}
+        />
+        <div
+          dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
+          style={{
+            height: 'max-content'
+          }}
+        />
       </AnimatedBox>
     </div>
   )

@@ -42,14 +42,40 @@ export default function AboutPage() {
       }}
     >
       <Box
-        sx={{ color: '#ffffff', fontWeight: 900, '& p': { fontWeight: 900 } }}
-        padding="60px 20px"
+        sx={{
+          fontWeight: 900,
+          '& div': { fontWeight: 900 },
+          '& span, >p': {
+            fontWeight: 900,
+            background: '#ffffff',
+            border: '1px solid #000000',
+            padding: '10px 20px',
+            width: 'max-content',
+            lineHeight: 2.3,
+            fontSize: { xs: 18, md: 26 }
+          },
+          '& .capsule': {
+            borderColor: '#000000',
+            color: '#000000',
+            background: '#ffffff',
+            fontSize: { xs: 18, md: 28 }
+          },
+          '& .capsules': {
+            mt: 20
+          },
+          '& .grid': {
+            width: '100%'
+          }
+        }}
+        padding={{ xs: '40px 10px', md: '60px 20px' }}
         display="grid"
-        justifyItems={'center'}
+        justifyContent={'center'}
         gap={60}
         width="100%"
       >
-        <Typography fontSize={60}>ABOUT ME</Typography>
+        <Typography fontSize={{ xs: 40, md: 60 }} display="inline-block">
+          ABOUT ME
+        </Typography>
         <AboutContent color="#ffffff" />
       </Box>
     </Modal>
@@ -66,11 +92,11 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
         justifyItems="center"
         sx={{
           maxWidth: '800px',
-          '& p': {
+          '& div': {
             fontSize: 26
           },
           '& a': {
-            color: color,
+            color: (theme) => theme.palette.text.primary,
             fontSize: 35,
             '&:hover': {
               textShadow: '0 0 15px ' + color
@@ -78,32 +104,45 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
           }
         }}
       >
-        <Typography>
-          IVC17, a Taipei based creative web developer/designer who loves the
-          digital space, and is all about being experimental and create crazy
-          visuals in the virtual space.
+        <Typography component={'div'}>
+          <span>
+            IVC17, a Taipei based creative web developer/designer who loves the
+            digital space, and is all about being experimental and create crazy
+            visuals in the virtual space.
+          </span>
           <br />
           <br />
-          Experienced in both web2/web3 web with particular interest in NFTs.
+          <span>
+            Experienced in both web2/web3 web with particular interest in NFTs.
+          </span>
           <br />
           <br />
-          Mostly work with code but occasionally other mediums too. I’m always
-          looking for next exciting project, drop me a message{' '}
-          {color === '#ffffff' && <Link to={routes.contact}>here</Link>} If you’
-          have any cool ideas that wants to be carried out.
+          <span>
+            Mostly work with code but occasionally other mediums too. I’m always
+            looking for next exciting project, drop me a message{' '}
+            {color === '#ffffff' && <Link to={routes.contact}>here</Link>} if
+            you’ have any cool ideas that wants to be carried out.
+          </span>
         </Typography>
-        <Typography textAlign={'left'} width="100%">
-          I'm always intersted in these:
-        </Typography>
-        <Typography component="div" maxWidth="100%">
-          <Box display="flex" flexWrap={'wrap'} gap="20px" className="capsules">
-            {keywords.map((word) => (
-              <Capsule color={color} key={word}>
-                {word}
-              </Capsule>
-            ))}
-          </Box>
-        </Typography>
+        <Box mt={20}>
+          <Typography textAlign={'left'} width="100%" component="div">
+            <span>I'm always intersted in these:</span>
+          </Typography>
+          <Typography component="div" maxWidth="100%">
+            <Box
+              display="flex"
+              flexWrap={'wrap'}
+              gap="20px"
+              className="capsules"
+            >
+              {keywords.map((word) => (
+                <Capsule color={color} key={word} className="capsule">
+                  {word}
+                </Capsule>
+              ))}
+            </Box>
+          </Typography>
+        </Box>
       </Box>
     </>
   )

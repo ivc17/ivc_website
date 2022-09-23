@@ -1,8 +1,9 @@
-import { Button } from '@mui/material'
+import { Button, useTheme } from '@mui/material'
 import Box from 'components/Box'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
+import { ReactComponent as Icon } from 'assets/svg/icon.svg'
 import TextCarousel from './TextCarousel'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routes'
 import useBreakpoint from 'hooks/useBreakpoints'
 
@@ -13,26 +14,20 @@ const carouselText = [
   'FineArt'
 ]
 
-// const StyledButton = styled(Button)({
-//   display: 'block',
-//   justifyContent: 'flex-start',
-//   fontSize: 40,
-//   // userSelect: 'none',
-//   '&:hover': {
-//     background: '#ffffff',
-//     width: '100%',
-//     color: '#000000',
-//     transition: '0.5s'
-//   }
-// })
-
 export default function Header() {
   const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const isDownMd = useBreakpoint()
+  const isDownMd = useBreakpoint('md')
+  const isDownSm = useBreakpoint('sm')
+  const theme = useTheme()
 
   return (
-    <Box position="fixed" top={'0'} left={'0'} width="100%" zIndex={10}>
+    <Box
+      position="fixed"
+      top={'0'}
+      left={'0'}
+      width="100%"
+      zIndex={theme.zIndex.modal + 1}
+    >
       <Box position="relative">
         <Box
           sx={{
@@ -46,15 +41,15 @@ export default function Header() {
           }}
           width="100%"
           // height="35px"
-          paddingLeft={'35px'}
+          paddingLeft={{ xs: 20, md: 35 }}
           display="flex"
         >
           <Box
-            padding={{ xs: '0 20px', md: '0 80px' }}
+            padding={{ xs: '10px 20px 0 0', md: '0 60px' }}
             display={'flex'}
             alignItems="center"
-            gap={{ xs: 10, md: 30 }}
-            height={{ xs: 80, md: 100 }}
+            gap={{ xs: 5, md: 30 }}
+            height={{ xs: 60, md: 100 }}
             zIndex={5}
             sx={{
               background: '#000000',
@@ -62,6 +57,23 @@ export default function Header() {
               fontSize: { xs: 14, md: 18 }
             }}
           >
+            <Button
+              sx={{
+                transition: '.5s',
+                width: { xs: '60px', md: '150px' },
+                background: '#000000'
+              }}
+              onClick={() => {
+                navigate('/')
+              }}
+            >
+              {isDownSm ? (
+                <Icon />
+              ) : (
+                <Logo style={{ width: '100%', strokeWidth: 5 }} />
+              )}
+            </Button>
+
             <Button
               onClick={() => {
                 navigate(routes.about)
@@ -96,32 +108,6 @@ export default function Header() {
             >
               Contact
             </Button>
-            <Box
-              width={'100%'}
-              position="absolute"
-              top={{ xs: 100, md: 120 }}
-              left={0}
-            >
-              <Button
-                sx={{
-                  pointerEvents: pathname === '/' ? 'none' : 'auto',
-                  transition: '.5s',
-                  opacity: pathname === '/' ? 0 : 1,
-                  width: { xs: '100px', md: '70%' },
-                  background: '#000000'
-                }}
-                onClick={() => {
-                  navigate('/')
-                }}
-              >
-                <Logo style={{ width: '100%', strokeWidth: 5 }} />
-              </Button>
-
-              {/* <StyledButton>Fine Art</StyledButton>
-          <StyledButton>Web</StyledButton>
-          <StyledButton>Graphic Design</StyledButton>
-          <StyledButton>Photography</StyledButton> */}
-            </Box>
           </Box>
           <Box
             flexGrow={1}

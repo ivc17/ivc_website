@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import Box from 'components/Box'
+import Copy from 'components/Copy'
 import ExternalLink from 'components/ExternalLink'
 import Modal from 'components/Modal'
 import { routes } from 'constants/routes'
@@ -14,47 +15,76 @@ export default function ContactPage() {
       onDismiss={() => {
         navigate(routes.home)
       }}
+      height="80vh"
     >
       <Box
-        sx={{ color: '#ffffff', fontWeight: 900, '& p': { fontWeight: 900 } }}
-        padding="60px 20px"
+        sx={{
+          margin: '0 auto',
+          fontWeight: 900,
+          '& p': {
+            fontWeight: 900,
+            background: '#ffffff',
+            border: '1px solid #000000',
+            padding: '10px 20px',
+            width: 'max-content'
+          },
+          '& *': {}
+        }}
+        padding={{ xs: '40px 10px', md: '60px 20px' }}
         display="grid"
-        justifyItems={'center'}
-        gap={'90px'}
+        justifyItems={'flex-start'}
+        gap={{ xs: '60px', md: '90px' }}
       >
-        <Typography fontSize={60}>CONTACT</Typography>
+        <Typography fontSize={{ xs: 40, md: 60 }}>CONTACT</Typography>
         <Box
           display="grid"
-          gap={40}
+          gap={{ xs: 35, md: 40 }}
           sx={{
             '& p': {
-              fontSize: 30
+              fontSize: { xs: 18, md: 30 }
+              // '& span, >p': {
+              //   fontWeight: 900,
+              //   background: '#ffffff',
+              //   border: '1px solid #000000',
+              //   padding: '10px 20px',
+              //   width: 'max-content',
+              //   lineHeight: 2.3,
+              //   fontSize: { xs: 18, md: 26 }
+              // },
             },
             '& span': {
-              fontSize: 28
+              fontSize: { xs: 18, md: 28 }
+            },
+            '& *': {
+              textOverflow: 'break-all'
             }
           }}
           maxWidth={700}
         >
-          <Typography>
-            {' '}
-            <span>EMAIL:</span>
-            <br />
-            ivc1741@gmail.com{' '}
-          </Typography>
-          <Typography>
-            <span> GITHUB:</span> <br />{' '}
-            <ExternalLink href="https://github.com/ivc17" underline="always">
-              ivc17
-            </ExternalLink>
-          </Typography>
-
-          <Typography>
-            <span> WEBSITE:</span> <br />{' '}
-            <ExternalLink href="https://ivc17.github.io/" underline="always">
-              https://ivc17.github.io/
-            </ExternalLink>
-          </Typography>
+          <Box>
+            <Typography mb={5}>EMAIL:</Typography>
+            <Typography display={'inline-flex'} gap={10} alignItems="center">
+              ivc1741@gmail.com
+              <Copy toCopy="ivc1741@gmail.com" />
+            </Typography>
+          </Box>
+          <Box display={'inline-flex'} gap={5} alignItems="center">
+            <Typography> GITHUB:</Typography>
+            <Typography display={'inline-flex'} gap={10} alignItems="center">
+              <ExternalLink href="https://github.com/ivc17" underline="always">
+                ivc17
+              </ExternalLink>
+            </Typography>
+          </Box>
+          <Box>
+            <Typography mb={5}> WEBSITE:</Typography>
+            <Typography display={'inline-flex'} gap={10} alignItems="center">
+              <ExternalLink href="https://ivc17.github.io/" underline="always">
+                https://ivc17.github.io/
+              </ExternalLink>
+              <Copy toCopy="https://ivc17.github.io/" />
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Modal>

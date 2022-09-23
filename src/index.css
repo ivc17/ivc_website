@@ -3,4 +3,14 @@ body {
   font-family: serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-left: 35px;
+  padding-top: 35px;
+}
+
+@media (max-width: 900px) {
+  body{
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+
 }

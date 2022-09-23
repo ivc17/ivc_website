@@ -43,9 +43,9 @@ export default function TopPlane({
   }, [cssScene, setPlane])
 
   return (
-    <mesh ref={ref} position={[0, 0, 0]} visible={true}>
+    <mesh ref={ref} position={[0, 0, 0]} visible={false}>
       <planeGeometry args={[1, 1]} />
-      <meshBasicMaterial color="red" />
+      {/* <meshBasicMaterial color="red" /> */}
     </mesh>
   )
 }
@@ -58,12 +58,11 @@ function Top() {
         width: '100%',
         overflow: 'hidden',
         position: 'relative',
-        display: 'flex',
-        alignItems: 'flex-end'
+        display: 'flex'
       }}
     >
       <AnimatedBox>
-        <Typography textAlign={'center'} fontSize={'28px'}>
+        <Typography textAlign={'center'} fontSize={'28px'} component="div">
           <div
             dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
             style={{

@@ -39,37 +39,17 @@ const FONTS = {
 export const theme = {
   palette: {
     primary: {
-      light: '#ADDFB5',
-      main: '#31B047',
-      dark: '#129026',
+      light: '#22222290',
+      main: '#000000',
+      dark: 'rgba(0, 0, 0, 0.6)',
       contrastText: '#ffffff'
-    },
-    secondary: {
-      light: '#31B047',
-      main: '#D4F3D8',
-      dark: '#129026',
-      contrastText: '#ffffff'
-    },
-
-    error: {
-      main: '#FA0E0E',
-      light: '#FA0E0E10'
-    },
-    warning: {
-      main: '#F0B90B'
-    },
-    info: {
-      main: '#F0B90B'
-    },
-    success: {
-      main: '#31B047'
     },
     background: {
-      default: '#F2F5FA',
+      default: '#F0F3F8',
       paper: '#FFFFFF'
     },
     text: {
-      primary: '#252525',
+      primary: '#232323',
       secondary: 'rgba(0, 0, 0, 0.6)',
       disabled: '#F2F5FA'
     },
@@ -79,8 +59,8 @@ export const theme = {
   },
 
   height: {
-    header: '80px',
-    mobileHeader: '51px',
+    header: '100px',
+    mobileHeader: '80px',
     footer: '60px'
   },
   width: {
