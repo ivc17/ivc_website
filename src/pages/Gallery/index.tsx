@@ -268,45 +268,6 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                   )
                 }
               )}
-              {LIST_OF_WORKS.map(
-                ({ title, description, technology, gif }, idx) => {
-                  const random = Math.abs(Math.round(Math.random() * 3 - 1))
-                  return (
-                    <Box
-                      key={title}
-                      sx={{
-                        '&:hover': {
-                          background: 'red'
-                        },
-                        overflow: 'visible',
-                        position: 'relative'
-                      }}
-                    >
-                      <Typography
-                        fontSize={60}
-                        fontWeight={700}
-                        textAlign={textAlign[random] as any}
-                        sx={{
-                          marginLeft: Math.random() * 70 + '%',
-                          mixBlendMode: 'exclusion'
-                        }}
-                      >
-                        {title}
-                      </Typography>
-                      {gif && (
-                        <Img
-                          delay={idx + (idx * Math.random() * random) / 2}
-                          sx={{
-                            zindex: random,
-                            background: `no-repeat  center/cover url(${gif})`,
-                            left: Math.random() * 40 + '%'
-                          }}
-                        />
-                      )}
-                    </Box>
-                  )
-                }
-              )}
             </Typography>
           </Box>
         )
