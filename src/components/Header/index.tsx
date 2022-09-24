@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@mui/material'
+import { Button, styled, useTheme } from '@mui/material'
 import Box from 'components/Box'
 import { ReactComponent as Logo } from 'assets/svg/logo.svg'
 import { ReactComponent as Icon } from 'assets/svg/icon.svg'
@@ -6,6 +6,30 @@ import TextCarousel from './TextCarousel'
 import { useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routes'
 import useBreakpoint from 'hooks/useBreakpoints'
+
+const StyledNav = styled('nav')(({ theme }) => ({
+  transition: '.5s',
+  willChange: 'transform',
+  background: '#000000',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'relative',
+  '& button': {
+    '&:hover': {
+      transform: 'scale(-1,1)'
+    }
+  },
+  height: 60,
+  gap: 5,
+  padding: '10px 20px 0 0',
+  fontSize: 14,
+  [theme.breakpoints.up('md')]: {
+    height: 100,
+    gap: 30,
+    padding: '0 60px',
+    fontSize: 18
+  }
+}))
 
 const carouselText = [
   'FrontendDevelopment',
@@ -44,26 +68,7 @@ export default function Header() {
           paddingLeft={{ xs: 20, md: 35 }}
           display="flex"
         >
-          <Box
-            padding={{ xs: '10px 20px 0 0', md: '0 60px' }}
-            display={'flex'}
-            alignItems="center"
-            gap={{ xs: 5, md: 30 }}
-            height={{ xs: 60, md: 100 }}
-            zIndex={5}
-            sx={{
-              background: '#000000',
-              position: 'relative',
-              fontSize: { xs: 14, md: 18 },
-              transition: '.5s',
-              willChange: 'transform',
-              '& button': {
-                '&:hover': {
-                  transform: 'scale(-1,1)'
-                }
-              }
-            }}
-          >
+          <StyledNav>
             <Button
               sx={{
                 transition: '.5s',
@@ -115,7 +120,7 @@ export default function Header() {
             >
               Contact
             </Button>
-          </Box>
+          </StyledNav>
           <Box
             flexGrow={1}
             overflow={isDownMd ? 'visible' : 'hidden'}

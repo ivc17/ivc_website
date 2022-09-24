@@ -9,14 +9,13 @@ import {
   cameraPositions,
   cameraPositionsXs
 } from 'constants/index'
-import { debounce } from '@mui/material'
 
 const maxWidth = 2000
 const minWidth = 300
 const maxScale = 1400
-const minScale = 1000
+const minScale = 1050
 
-const defaultPosition = new Vector3(-5, 15, 30)
+const defaultPosition = new Vector3(0, 15, 30)
 
 const unitScale = (maxScale - minScale) / (maxWidth - minWidth)
 
@@ -90,20 +89,18 @@ export default function Chrometype({
   useEffect(() => {
     if (mesh.current) {
       mesh.current.geometry.center()
-      // mesh.current.rotation.x = -0.3
     }
 
-    const resizeListener = debounce(() => {
-      setNextScale(resize())
-    }, 500)
+    // const resizeListener = debounce(() => {
+    //   setNextScale(resize())
+    // }, 500)
 
-    resizeListener()
     setNextScale(resize())
-
-    window.addEventListener('resize', resizeListener)
-    return () => {
-      window.removeEventListener('resize', resizeListener)
-    }
+    // setNextScale(resize())
+    // window.addEventListener('resize', resizeListener)
+    // return () => {
+    //   window.removeEventListener('resize', resizeListener)
+    // }
   }, [resize])
 
   useEffect(() => {

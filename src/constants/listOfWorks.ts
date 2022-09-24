@@ -16,7 +16,7 @@ export const LIST_OF_WORKS = [
   },
   {
     title: 'Asf2y',
-    description: `Story about after sleeping for two years  underwater one (I) finally popped up, and saw how the sun shines on ocean surface.Also an attempt to deliver graphic layout with code, and animations.`,
+    description: `Story about after sleeping for two years  underwater one(I) finally popped up, and saw how the sun shines on ocean surface. Also an attempt to deliver graphic layout with code, and animations.`,
     technology: 'Vue.js, Three.js, SVG, GLSL',
     gif: asf2y,
     link: 'https://ivc17.github.io/asf2y-view',

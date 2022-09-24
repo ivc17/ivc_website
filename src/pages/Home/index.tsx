@@ -14,6 +14,9 @@ import ContactPage from 'pages/Contact'
 import AboutPage from 'pages/About'
 import GalleryPage from 'pages/Gallery'
 import SingleWork from 'pages/SingleWork'
+// import Loader from 'components/Loader'
+import React from 'react'
+import Loader from 'components/Loader'
 // import BackGlass from 'components/BackGlass'
 
 export default function Home() {
@@ -68,11 +71,14 @@ export default function Home() {
                 isDownMd={isDownMd}
               />
 
-              <Chrometype
-                isDownMd={isDownMd}
-                pathname={location.pathname}
-                cameraTarget={cameraTarget}
-              />
+              <Suspense fallback={<Loader />}>
+                <Chrometype
+                  isDownMd={isDownMd}
+                  pathname={location.pathname}
+                  cameraTarget={cameraTarget}
+                />
+              </Suspense>
+
               <Skybox
                 setPlane={setPlane}
                 cssScene={cssScene}

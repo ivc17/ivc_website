@@ -41,18 +41,14 @@ const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   transform: 'translate(0, 0)',
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
-  animation: `${appear} 13s infinite`,
+  animation: `${appear} 15s infinite`,
   animationDelay: delay + 's',
   opacity: 0,
   left: '50%',
   top: '-50%',
   width: 480,
   height: 274,
-  filter: 'saturate(0)',
-  [theme.breakpoints.down('md')]: {
-    width: 640,
-    height: 366
-  }
+  filter: 'saturate(0)'
 }))
 
 export default function GalleryPage() {
@@ -272,11 +268,11 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                       </Typography>
                       {gif && (
                         <Img
-                          delay={idx + (idx * Math.random() * random) / 2}
+                          delay={idx + idx * Math.random() * random}
                           sx={{
                             zindex: random,
                             background: `no-repeat  center/cover url(${gif})`,
-                            left: Math.random() * 40 + '%'
+                            left: Math.random() * 50 + '%'
                           }}
                         />
                       )}

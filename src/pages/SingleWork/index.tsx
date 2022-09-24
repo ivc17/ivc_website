@@ -120,10 +120,10 @@ export default function SingleWork() {
           )}
           <Typography
             mt={-1}
-            fontSize={{ xs: 16, md: 20 }}
+            fontSize={{ xs: 16, md: 24 }}
             className="p"
             sx={{
-              padding: '10px 20px 40px'
+              padding: { xs: '10px 20px 40px', md: '40px' }
             }}
           >
             {work.description}
