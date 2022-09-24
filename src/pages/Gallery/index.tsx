@@ -33,6 +33,11 @@ const Description = styled('div')({
   fontWeight: 700,
   maxWidth: 300
 })
+const Tag = styled('div')({
+  fontSize: 24,
+  fontWeight: 500,
+  maxWidth: 300
+})
 
 const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   position: 'absolute',
@@ -198,7 +203,10 @@ export function GalleryContent({ color = '#000000' }: { color?: string }) {
       justifyItems="center"
       gridTemplateColumns={'1fr 1fr 1fr'}
       sx={{
-        '& p, div': {},
+        '& p, div': {
+          maxWidth: '100%',
+          wordBreak: 'break-all'
+        },
         '& a': {
           color: color,
           '&:hover': {
@@ -207,12 +215,13 @@ export function GalleryContent({ color = '#000000' }: { color?: string }) {
         }
       }}
     >
-      {LIST_OF_WORKS.map(({ title, description, technology }) => {
+      {LIST_OF_WORKS.map(({ title, hashtag, technology, link }) => {
         return (
           <Box key={title}>
             <Title>{title}</Title>
-            <Description>{description}</Description>
-            <Typography>{technology}</Typography>
+            <Description>{hashtag}</Description>
+            <Description>{link}</Description>
+            <Tag>{technology}</Tag>
           </Box>
         )
       })}

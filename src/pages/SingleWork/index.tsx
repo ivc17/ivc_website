@@ -85,11 +85,24 @@ export default function SingleWork() {
       {work && (
         <Box
           sx={{
+            width: '100%',
+            margin: '0 auto',
             fontWeight: 900 + '!important',
+            maxWidth: (theme) => theme.width.maxContent,
             '& h1, .p': {
               fontWeight: 900,
               background: '#ffffff',
               border: '1px solid #000000'
+            },
+            '& .button': {
+              transition: '.5s',
+              '&:hover': {
+                '& *': {
+                  color: '#ffffff'
+                },
+                color: '#ffffff',
+                background: '#000000'
+              }
             }
           }}
         >
@@ -105,7 +118,7 @@ export default function SingleWork() {
           </Typography>
           {work.link && (
             <Typography
-              className="p"
+              className="p button"
               display={'flex'}
               alignItems="center"
               gap={20}
@@ -113,21 +126,62 @@ export default function SingleWork() {
               padding="10px 20px"
               mt={-1}
               fontSize={{ xs: 24, md: 40 }}
+              component="div"
             >
               <ExternalLink href={work.link}>Launch</ExternalLink>
               <Copy toCopy={work.link} />
             </Typography>
           )}
           <Typography
+            component="div"
             mt={-1}
             fontSize={{ xs: 16, md: 24 }}
             className="p"
             sx={{
-              padding: { xs: '10px 20px 40px', md: '40px' }
+              padding: 0,
+              whiteSpace: 'pre-wrap',
+              '& video, img': {
+                width: '100%',
+                mt: 20,
+                background: `#000000`,
+                height: { xs: 162, sm: 324, md: 486, lg: 648, xl: 775 },
+                objectFit: 'cover'
+              },
+              '& .half video,.half img': {
+                width: '100%',
+                mt: 20,
+                background: `#000000`,
+                height: { xs: 81, sm: 162, md: 243, lg: 328, xl: 387 },
+                objectFit: 'cover'
+              },
+              '& p': {
+                padding: {
+                  xs: '0 20px',
+                  md: '0 40px'
+                }
+              }
             }}
           >
             {work.description}
           </Typography>
+
+          {work.link && (
+            <Typography
+              className="p button"
+              display={'flex'}
+              alignItems="center"
+              gap={20}
+              // maxWidth="max-content"
+              padding="20px 20px"
+              mt={40}
+              fontSize={{ xs: 24, md: 40 }}
+              component="div"
+            >
+              <ExternalLink href={work.link} sx={{ margin: '0 auto' }}>
+                Launch
+              </ExternalLink>
+            </Typography>
+          )}
           <Box position="relative" mt={100}>
             <Typography
               component={'div'}
@@ -144,6 +198,7 @@ export default function SingleWork() {
               <Capsule key={word}>{word}</Capsule>
             ))}
           </Box>
+          <div style={{ height: 300 }}></div>
         </Box>
       )}
     </Modal>
