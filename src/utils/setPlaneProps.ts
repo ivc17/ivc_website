@@ -19,10 +19,10 @@ export const setPlaneProps = (
   switch (plane) {
     case 'left':
       mesh.rotateY(Math.PI / 2)
-      mesh.position.set(-width / 2, 0, -height / 2)
+      mesh.position.set(-width / 2, 0, -halfHeight)
       mesh.geometry.scale(height, height, 0)
       cssObj?.rotateY(Math.PI / 2)
-      cssObj?.position.set(-width / 2, 0, -height / 2)
+      cssObj?.position.set(-width / 2, 0, -halfHeight)
 
       break
     case 'right':

@@ -12,8 +12,8 @@ export const cameraPositions = {
 }
 
 export const cameraPositionsXs = {
-  [routes.about]: new Vector3(1000, 0, -900),
-  [routes.contact]: new Vector3(-1000, 0, -900),
+  [routes.about]: new Vector3(100, 0, -400),
+  [routes.contact]: new Vector3(-100, 0, -400),
   // [routes.gallery]: new Vector3(0, 0, 100)
   [routes.gallery]: new Vector3(0, -300, -600),
   [routes.singlWork]: new Vector3(0, 300, -600)

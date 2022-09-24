@@ -7,18 +7,18 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
 import { AnimatedBox } from './AnimatedBox'
+import { LIST_OF_WORKS } from 'constants/listOfWorks'
 
-const textContent = `Expert knowledge of HTML/CSS/JavaScript/Browser
-Familiar with one of React/Vue/Svelte frameworks.
-Experience in accessibility, usability, and scalability
-Knowledge of web performance-optimizing
-Expert knowledge of HTML/CSS/JavaScript/Browser/NodeJS.
-Master in Code testability, readability, maintainability, 
-scalability, reusability, and modularization.
-Master in web performance-optimizing.
-Familiar with one of React/Vue/Svelte frameworks.
-Familiar with unit/UI/integration testing.
-Experience in building complete CI/CD.`
+const textContent = LIST_OF_WORKS.reduce((acc, { hashtag, technology }) => {
+  if (!hashtag) return acc
+  acc +=
+    '#' +
+    hashtag.split(', ').join('\xa0\xa0\xa0#') +
+    '\xa0\xa0\xa0#' +
+    technology.split(', ').join('\xa0\xa0\xa0#') +
+    '\xa0\xa0\xa0'
+  return acc
+}, '#FrontEnd #CreativeCoding #UI/UX')
 
 export default function BottomPlane({
   setPlane,
@@ -70,7 +70,16 @@ function Top() {
       }}
     >
       <AnimatedBox>
-        <Typography textAlign={'center'} fontSize={'28px'}>
+        <Typography
+          textAlign={'center'}
+          fontSize={'28px'}
+          fontWeight={700}
+          maxWidth="100%"
+          sx={{ wordBreak: 'break-word' }}
+        >
+          {textContent}
+          {textContent}
+          {textContent}
           {textContent}
           {textContent}
           {textContent}

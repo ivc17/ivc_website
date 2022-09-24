@@ -103,7 +103,7 @@ export default function GalleryPage() {
         </Box>
         <Box
           display="grid"
-          gridTemplateColumns={{ xs: '100%', sm: '1fr 1fr 1fr' }}
+          gridTemplateColumns={{ xs: '100%', sm: '33.33% 33.33% 33.33%' }}
           maxWidth={theme.width.maxContent}
           rowGap={{ xs: 20, sm: 0 }}
           columnGap={{ xs: 20, sm: 0 }}
@@ -120,7 +120,7 @@ export default function GalleryPage() {
             }
           }}
         >
-          {LIST_OF_WORKS.map(({ title, description, param, gif }) => {
+          {LIST_OF_WORKS.map(({ title, hashtag, param, gif }) => {
             const random = Math.round(Math.random() * 3)
             return (
               <React.Fragment key={title}>
@@ -133,31 +133,47 @@ export default function GalleryPage() {
                       width: '100%',
                       objectFit: 'contain'
                     },
-                    width: { xs: '80%', sm: '100%' }
+                    width: { xs: '80%', sm: '100%' },
+                    maxWidth: { xs: '80%', sm: '100%' }
                   }}
+                  display="flex"
+                  flexDirection={'column'}
                   justifySelf={{ xs: textAlign[random - 1], md: 'flex-start' }}
                 >
                   {' '}
                   <img src={gif} alt={title} />
                   <Box padding="10px" mb={16}>
                     <Typography
-                      fontSize={{ xs: 20, md: 30 }}
+                      fontSize={{ xs: 25, md: 30 }}
                       whiteSpace="break-spaces"
                       margin="8px 0 16px"
                       fontWeight={900}
                     >
                       {title}
                     </Typography>
-                    <Typography fontWeight={700} fontSize={{ xs: 16, md: 18 }}>
-                      {description}
+                    <Typography
+                      fontWeight={700}
+                      fontSize={{ xs: 14, md: 16 }}
+                      display="flex"
+                      flexWrap={'wrap'}
+                    >
+                      {hashtag?.split(', ').map((tag) => {
+                        return <span key={tag}>#{tag}&nbsp;&nbsp;</span>
+                      })}
                     </Typography>
-                    {/* <Typography>{technology}</Typography> */}
                   </Box>
                   <Button
                     sx={{
                       textAlign: 'center',
                       width: '100%',
-                      borderTop: '1px solid #000000'
+                      borderTop: '1px solid #000000',
+                      marginTop: 'auto!important',
+                      justifySelf: 'flex-end',
+                      transition: '.5s',
+                      '&:hover': {
+                        color: '#ffffff',
+                        background: '#000000'
+                      }
                     }}
                     onClick={() => {
                       navigate(routes.singlWork.replace(':work', param))

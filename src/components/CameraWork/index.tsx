@@ -1,3 +1,4 @@
+import { debounce } from '@mui/material'
 import { RootState, useFrame, useThree } from '@react-three/fiber'
 import {
   cameraPositions,
@@ -8,6 +9,7 @@ import {
 import { routes } from 'constants/routes'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Group, MathUtils, Mesh, Vector3 } from 'three'
+let touchPos = { x: 0, y: 0 }
 
 export function CameraWorkMovement({
   children,
@@ -58,16 +60,17 @@ export default function CameraWork({
   isDownMd?: boolean
 }) {
   const { camera } = useThree()
+  const [isDrag, setIsDrag] = useState(false)
   const [nextPosition, setNextPosition] = useState(new Vector3(0, 0, 0))
   const [nextCameraPosition, setNextCameraPosition] =
     useState(initCameraPosition)
 
   useFrame((state: RootState) => {
-    pathChange(state, pathname, state.clock.elapsedTime)
+    pathChange(state, pathname, state.clock.elapsedTime, isDrag)
   })
 
   const pathChange = useCallback(
-    (state: RootState, pathname, time) => {
+    (state: RootState, pathname, time, isDrag: boolean) => {
       camera.lookAt(cameraTarget)
       cameraTarget.lerp(nextPosition, 0.05)
       camera.position.lerp(nextCameraPosition, 0.05)
@@ -76,13 +79,13 @@ export default function CameraWork({
         // console.log(MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1))
         camera.rotation.y = MathUtils.lerp(
           camera.rotation.y,
-          (state.mouse.x * Math.PI) / divider,
+          ((isDrag ? touchPos.x : state.mouse.x) * Math.PI) / divider,
           // 0.05
           MathUtils.smoothstep(time, -1, 1)
         )
         camera.rotation.x = MathUtils.lerp(
           camera.rotation.x,
-          -((state.mouse.y * Math.PI) / divider) * 1.5,
+          -(((isDrag ? touchPos.y : state.mouse.y) * Math.PI) / divider) * 1.5,
           // 0.05
           MathUtils.smoothstep(time, -1, 1)
           // MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1)
@@ -91,6 +94,28 @@ export default function CameraWork({
     },
     [camera, cameraTarget, divider, nextCameraPosition, nextPosition]
   )
+
+  useEffect(() => {
+    const startDrag = debounce(() => {
+      setIsDrag(true)
+    }, 300)
+    const endDrag = () => {
+      setIsDrag(false)
+    }
+    const onDrag = (e: any) => {
+      touchPos.x = e.targetTouches[0].clientX / 200
+      touchPos.y = e.targetTouches[0].clientY / 200
+    }
+
+    window.addEventListener('touchstart', startDrag)
+    window.addEventListener('touchend', endDrag)
+    window.addEventListener('touchmove', onDrag)
+    return () => {
+      window.removeEventListener('touchstart', startDrag)
+      window.removeEventListener('touchend', endDrag)
+      window.addEventListener('touchmove', onDrag)
+    }
+  }, [])
 
   useEffect(() => {
     isDownMd ? (camera.zoom = defaultZoom.xs) : (camera.zoom = defaultZoom.md)

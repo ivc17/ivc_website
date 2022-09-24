@@ -54,7 +54,14 @@ export default function Header() {
             sx={{
               background: '#000000',
               position: 'relative',
-              fontSize: { xs: 14, md: 18 }
+              fontSize: { xs: 14, md: 18 },
+              transition: '.5s',
+              willChange: 'transform',
+              '& button': {
+                '&:hover': {
+                  transform: 'scale(-1,1)'
+                }
+              }
             }}
           >
             <Button
