@@ -9,9 +9,13 @@ import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
 import { AboutContent } from 'pages/About'
 import Box from 'components/Box'
-import { AnimatedBox } from './AnimatedBox'
+import { AnimatedBox2 } from './AnimatedBox'
 
-const textContent = ReactDOMServer.renderToString(<AboutContent />)
+const str = ReactDOMServer.renderToString(<AboutContent />)
+const textContent = Array.from(Array(4).keys()).reduce((acc) => {
+  acc += str + '<br/><br/>'
+  return acc
+}, '')
 
 export default function AboutPlane({
   setPlane,
@@ -84,47 +88,17 @@ function About() {
         }
       }}
     >
-      <AnimatedBox>
+      <AnimatedBox2>
         <Typography
           component="div"
           textAlign={'center'}
           fontSize={'20px'}
-          padding="20px"
-        >
-          <div
-            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
-            style={{
-              height: 'max-content'
-            }}
-          ></div>
-          <br />
-          <br />
-          <div
-            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
-            style={{
-              height: 'max-content'
-            }}
-          ></div>
-          <br />
-          <br />
-          <div
-            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
-            style={{
-              height: 'max-content'
-            }}
-          ></div>
-          <br />
-          <br />
-          <div
-            dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
-            style={{
-              height: 'max-content'
-            }}
-          ></div>
-          <br />
-          <br />
-        </Typography>
-      </AnimatedBox>
+          padding="0 20px"
+          dangerouslySetInnerHTML={{
+            __html: textContent ?? ''
+          }}
+        ></Typography>
+      </AnimatedBox2>
     </Box>
   )
 }

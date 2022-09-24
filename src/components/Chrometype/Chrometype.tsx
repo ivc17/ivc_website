@@ -4,12 +4,17 @@ import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import matcapURL from 'assets/img/matcap8.png'
 import { Mesh, Scene, TextureLoader, Vector3 } from 'three'
 import { CameraWorkMovement } from 'components/CameraWork'
-import { initCameraPosition, cameraPositions } from 'constants/index'
+import {
+  initCameraPosition,
+  cameraPositions,
+  cameraPositionsXs
+} from 'constants/index'
+import { debounce } from '@mui/material'
 
 const maxWidth = 2000
 const minWidth = 300
 const maxScale = 1400
-const minScale = 800
+const minScale = 1000
 
 const defaultPosition = new Vector3(-5, 15, 30)
 
@@ -17,14 +22,15 @@ const unitScale = (maxScale - minScale) / (maxWidth - minWidth)
 
 export default function Chrometype({
   pathname,
-  cameraTarget
+  cameraTarget,
+  isDownMd
 }: {
   pathname: string
   cameraTarget: Vector3
+  isDownMd?: boolean
 }) {
   const { nodes } = useGLTF('/models/ivc17-3.glb') as any
   const mesh = useRef<Mesh>(null)
-  const mesh2 = useRef<Mesh>(null)
   const scene = useRef<Scene>(null)
   const [nextScale, setNextScale] = useState(maxScale)
   const [nextPosition, setNextPosition] = useState(defaultPosition)
@@ -67,11 +73,6 @@ export default function Chrometype({
       //   (mesh.current?.rotation + Math.cos(clock.elapsedTime) / 7,
       //     0
       //   )
-      mesh2.current?.rotation.set(
-        (Math.sin(clock.elapsedTime) * Math.PI) / 60,
-        (Math.cos(clock.elapsedTime) * Math.PI) / 80,
-        0
-      )
       if (mesh.current) {
         mesh.current.visible = true
       }
@@ -91,16 +92,13 @@ export default function Chrometype({
       mesh.current.geometry.center()
       // mesh.current.rotation.x = -0.3
     }
-    if (mesh2.current) {
-      mesh2.current.geometry.center()
-      // mesh.current.rotation.x = -0.3
-    }
 
-    const resizeListener = () => {
+    const resizeListener = debounce(() => {
       setNextScale(resize())
-    }
+    }, 500)
 
     resizeListener()
+    setNextScale(resize())
 
     window.addEventListener('resize', resizeListener)
     return () => {
@@ -114,20 +112,12 @@ export default function Chrometype({
       setNextScale(resize())
       setNextPosition(defaultPosition)
     } else {
+      const cp = isDownMd ? cameraPositionsXs : cameraPositions
       setNextScale(minScale)
-      const nextCameraPosition = cameraPositions[pathname] ?? initCameraPosition
+      const nextCameraPosition = cp[pathname] ?? initCameraPosition
       setNextPosition(nextCameraPosition)
     }
-  }, [camera, cameraTarget, pathname, resize])
-
-  // useEffect(() => {
-  //   new HDRCubeTextureLoader()
-  //     .setPath('textures/cube/pisaHDR/')
-  //     .load(
-  //       ['px.hdr', 'nx.hdr', 'py.hdr', 'ny.hdr', 'pz.hdr', 'nz.hdr'],
-  //       function (texture) {}
-  //     )
-  // }, [])
+  }, [camera, cameraTarget, isDownMd, pathname, resize])
 
   return (
     <Suspense fallback={null}>

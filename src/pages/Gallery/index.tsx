@@ -98,7 +98,7 @@ export default function GalleryPage() {
       >
         <Box>
           <Typography fontSize={'13vw'} fontWeight={900} color="#000000">
-            GALLERY
+            GALLEY
           </Typography>
         </Box>
         <Box
@@ -109,8 +109,8 @@ export default function GalleryPage() {
           columnGap={{ xs: 20, sm: 0 }}
           sx={{
             '&>div': {
-              marginTop: -1,
-              marginLeft: -1
+              marginTop: { xs: 0, sm: -1 },
+              marginLeft: { xs: 0, sm: -1 }
             },
             '&>div:nth-of-type(-n+3)': {
               marginTop: 0
@@ -120,7 +120,7 @@ export default function GalleryPage() {
             }
           }}
         >
-          {LIST_OF_WORKS.map(({ title, description, technology, gif }) => {
+          {LIST_OF_WORKS.map(({ title, description, param, gif }) => {
             const random = Math.round(Math.random() * 3)
             return (
               <React.Fragment key={title}>
@@ -159,8 +159,11 @@ export default function GalleryPage() {
                       width: '100%',
                       borderTop: '1px solid #000000'
                     }}
+                    onClick={() => {
+                      navigate(routes.singlWork.replace(':work', param))
+                    }}
                   >
-                    More
+                    MORE
                   </Button>
                 </Box>
                 {Array.from(Array(random).keys()).map((_, idx) => (
@@ -261,8 +264,45 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                           }}
                         />
                       )}
-                      {/* <Description>{description}</Description>
-            <Typography>{technology}</Typography> */}
+                    </Box>
+                  )
+                }
+              )}
+              {LIST_OF_WORKS.map(
+                ({ title, description, technology, gif }, idx) => {
+                  const random = Math.abs(Math.round(Math.random() * 3 - 1))
+                  return (
+                    <Box
+                      key={title}
+                      sx={{
+                        '&:hover': {
+                          background: 'red'
+                        },
+                        overflow: 'visible',
+                        position: 'relative'
+                      }}
+                    >
+                      <Typography
+                        fontSize={60}
+                        fontWeight={700}
+                        textAlign={textAlign[random] as any}
+                        sx={{
+                          marginLeft: Math.random() * 70 + '%',
+                          mixBlendMode: 'exclusion'
+                        }}
+                      >
+                        {title}
+                      </Typography>
+                      {gif && (
+                        <Img
+                          delay={idx + (idx * Math.random() * random) / 2}
+                          sx={{
+                            zindex: random,
+                            background: `no-repeat  center/cover url(${gif})`,
+                            left: Math.random() * 40 + '%'
+                          }}
+                        />
+                      )}
                     </Box>
                   )
                 }

@@ -95,7 +95,7 @@ export default function Header() {
                 fontWeight: 700
               }}
             >
-              All work
+              GALLEY
             </Button>
             <Button
               onClick={() => {
@@ -127,7 +127,6 @@ export default function Header() {
           width={{ xs: 20, md: 35 }}
           height="100%"
           minHeight={'100vh'}
-          mt="-40px"
           top={0}
           left={0}
           sx={{

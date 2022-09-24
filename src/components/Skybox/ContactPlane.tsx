@@ -9,8 +9,10 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import Box from 'components/Box'
 import { AnimatedBox } from './AnimatedBox'
 
-const textContent = `email: ivc1741@gmail.com     github: ivc17      
-`
+const textContent = Array.from(Array(20).keys()).reduce((acc) => {
+  acc += `EMAIL: ivc1741@gmail.com\nGITHUB: ivc17\nWEBTSITE:https://ivc17.github.io/\n`
+  return acc
+}, '')
 
 export default function ContactPlane({
   setPlane,
@@ -63,44 +65,56 @@ function Contact() {
     >
       <AnimatedBox direction="downward">
         <Box display="grid">
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
             <Typography
-              textAlign={'right'}
+              textAlign={'left'}
               fontSize={'18px'}
-              style={{ whiteSpace: 'pre-wrap' }}
+              style={{
+                whiteSpace: 'pre-wrap'
+              }}
             >
-              {Array.from(Array(60).keys()).map((_, idx) => (
-                <React.Fragment key={idx}>{textContent}</React.Fragment>
-              ))}
+              {textContent}
             </Typography>
             <Typography
-              textAlign={'right'}
+              textAlign={'left'}
               fontSize={'18px'}
-              style={{ whiteSpace: 'pre-wrap' }}
+              style={{
+                whiteSpace: 'pre-wrap'
+              }}
             >
-              {Array.from(Array(60).keys()).map((_, idx) => (
-                <React.Fragment key={idx}>{textContent}</React.Fragment>
-              ))}
+              {textContent}
+            </Typography>
+            <Typography
+              textAlign={'left'}
+              fontSize={'18px'}
+              style={{
+                whiteSpace: 'pre-wrap'
+              }}
+            >
+              {textContent}
             </Typography>
           </div>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
             <Typography
-              textAlign={'right'}
+              textAlign={'left'}
               fontSize={'18px'}
               style={{ whiteSpace: 'pre-wrap' }}
             >
-              {Array.from(Array(30).keys()).map((_, idx) => (
-                <React.Fragment key={idx}>{textContent}</React.Fragment>
-              ))}
+              {textContent}
             </Typography>
             <Typography
-              textAlign={'right'}
+              textAlign={'left'}
               fontSize={'18px'}
               style={{ whiteSpace: 'pre-wrap' }}
             >
-              {Array.from(Array(30).keys()).map((_, idx) => (
-                <React.Fragment key={idx}>{textContent}</React.Fragment>
-              ))}
+              {textContent}
+            </Typography>
+            <Typography
+              textAlign={'left'}
+              fontSize={'18px'}
+              style={{ whiteSpace: 'pre-wrap' }}
+            >
+              {textContent}
             </Typography>
           </div>
         </Box>

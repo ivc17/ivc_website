@@ -18,8 +18,15 @@ import SingleWork from 'pages/SingleWork'
 
 export default function Home() {
   const location = useLocation()
-  const { setPlane, leftPlane, topPlane, rightPlane, cameraTarget, cssScene } =
-    useSkybox()
+  const {
+    setPlane,
+    leftPlane,
+    topPlane,
+    rightPlane,
+    cameraTarget,
+    cssScene,
+    bottomPlane
+  } = useSkybox()
   const isDownMd = useBreakpoint('md')
 
   return (
@@ -57,10 +64,12 @@ export default function Home() {
                 galleryPlane={topPlane}
                 contactPlane={rightPlane}
                 cameraTarget={cameraTarget}
+                bottomPlane={bottomPlane}
                 isDownMd={isDownMd}
               />
 
               <Chrometype
+                isDownMd={isDownMd}
                 pathname={location.pathname}
                 cameraTarget={cameraTarget}
               />

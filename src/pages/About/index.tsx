@@ -8,7 +8,7 @@ const Capsule = styled('div')<{ color: string }>(({ theme, color }) => ({
   border: '1px solid ' + color,
   borderRadius: 60,
   width: 'max-content',
-  padding: '3px 20px',
+  padding: '6px 20px',
   maxWidth: '100%',
   fontSize: 28,
   [theme.breakpoints.down('md')]: {
@@ -58,16 +58,21 @@ export default function AboutPage() {
             borderColor: '#000000',
             color: '#000000',
             background: '#ffffff',
-            fontSize: { xs: 18, md: 28 }
+            fontSize: { xs: 18, md: 28 },
+            padding: { xs: '6px 10px', md: '6px 20px' }
           },
           '& .capsules': {
-            mt: 20
+            mt: 20,
+            gap: { xs: '10px', md: '20px' }
           },
           '& .grid': {
-            width: '100%'
+            width: '100%',
+            '& div': {
+              textAlign: 'left'
+            }
           }
         }}
-        padding={{ xs: '40px 10px', md: '60px 20px' }}
+        padding={{ xs: '40px 10px 200px', md: '60px 20px 200px' }}
         display="grid"
         justifyContent={'center'}
         gap={60}
@@ -93,13 +98,14 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
         sx={{
           maxWidth: '800px',
           '& div': {
-            fontSize: 26
+            fontSize: 26,
+            textAlign: 'right'
           },
           '& a': {
             color: (theme) => theme.palette.text.primary,
             fontSize: 35,
             '&:hover': {
-              textShadow: '0 0 15px ' + color
+              textShadow: '0 0 15px #00000050'
             }
           }
         }}
@@ -124,8 +130,8 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
             you’ have any cool ideas that wants to be carried out.
           </span>
         </Typography>
-        <Box mt={20}>
-          <Typography textAlign={'left'} width="100%" component="div">
+        <Box mt={'20px'}>
+          <Typography textAlign={'right'} width="100%" component="div">
             <span>I'm always intersted in these:</span>
           </Typography>
           <Typography component="div" maxWidth="100%">
@@ -134,6 +140,7 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
               flexWrap={'wrap'}
               gap="20px"
               className="capsules"
+              mt="20px"
             >
               {keywords.map((word) => (
                 <Capsule color={color} key={word} className="capsule">

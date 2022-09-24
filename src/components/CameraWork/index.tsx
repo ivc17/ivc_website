@@ -45,6 +45,7 @@ export default function CameraWork({
   galleryPlane,
   contactPlane,
   cameraTarget,
+  bottomPlane,
   isDownMd
 }: {
   divider?: number
@@ -53,6 +54,7 @@ export default function CameraWork({
   galleryPlane?: Mesh | undefined
   contactPlane?: Mesh | undefined
   cameraTarget: Vector3
+  bottomPlane?: Mesh | undefined
   isDownMd?: boolean
 }) {
   const { camera } = useThree()
@@ -130,11 +132,17 @@ export default function CameraWork({
         }
         break
       default:
-        setNextPosition(new Vector3(0, 0, 0))
-        setNextCameraPosition(initCameraPosition)
+        if (pathname?.match(/\/gallery\/(.+)/) && bottomPlane) {
+          setNextPosition(bottomPlane.position)
+          setNextCameraPosition(cp[routes.singlWork])
+        } else {
+          setNextPosition(new Vector3(0, 0, 0))
+          setNextCameraPosition(initCameraPosition)
+        }
     }
   }, [
     aboutPlane,
+    bottomPlane,
     camera,
     camera.rotation.y,
     cameraTarget,

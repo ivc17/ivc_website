@@ -4,18 +4,20 @@ import Copy from 'components/Copy'
 import ExternalLink from 'components/ExternalLink'
 import Modal from 'components/Modal'
 import { routes } from 'constants/routes'
+import useBreakpoint from 'hooks/useBreakpoints'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function ContactPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const isDownSm = useBreakpoint('sm')
   return (
     <Modal
       isOpen={location.pathname === routes.contact}
       onDismiss={() => {
         navigate(routes.home)
       }}
-      height="80vh"
+      height={isDownSm ? undefined : '80vh'}
     >
       <Box
         sx={{
@@ -29,7 +31,7 @@ export default function ContactPage() {
             width: 'max-content'
           }
         }}
-        padding={{ xs: '40px 10px', md: '60px 20px' }}
+        padding={{ xs: '40px 10px 200px', md: '60px 20px 200px' }}
         display="grid"
         justifyItems={'flex-start'}
         gap={{ xs: '60px', md: '90px' }}
@@ -76,12 +78,9 @@ export default function ContactPage() {
               gap={10}
               alignItems="center"
               component={'div'}
+              className="p"
             >
-              <ExternalLink
-                href="https://ivc17.github.io/"
-                underline="always"
-                className="p"
-              >
+              <ExternalLink href="https://ivc17.github.io/" underline="always">
                 https://ivc17.github.io/
               </ExternalLink>
               <Copy toCopy="https://ivc17.github.io/" />

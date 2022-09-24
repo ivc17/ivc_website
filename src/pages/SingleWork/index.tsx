@@ -13,7 +13,7 @@ const Capsule = styled('div')({
 })
 export default function SingleWork() {
   const { pathname } = useLocation()
-  const match = pathname.match(/\/gallery\/(.+)/)
+  const match = useMemo(() => pathname.match(/\/gallery\/(.+)/), [pathname])
 
   const work = useMemo(() => {
     if (!match) return undefined
