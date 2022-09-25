@@ -12,5 +12,34 @@ body {
     padding-left: 20px;
     padding-top: 20px;
   }
+}
 
+@font-face {
+  font-family: 'Heebo';
+  font-style: none;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Heebo-Regular'), url('./assets/font/Heebo-Regular.ttf');
+}
+@font-face {
+  font-family: 'Heebo';
+  font-style: none;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Heebo-Medium'), url('./assets/font/Heebo-Medium.ttf');
+}
+@font-face {
+  font-family: 'Heebo';
+  font-style: none;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Heebo-ExtraBold'), url('./assets/font/Heebo-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Heebo';
+  font-style: none;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Heebo-Black'), url('./assets/font/Heebo-Black.ttf');
 }

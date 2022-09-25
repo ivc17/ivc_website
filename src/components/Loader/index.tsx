@@ -1,17 +1,23 @@
 import Box from 'components/Box'
-import { Html } from '@react-three/drei'
 import { CircularProgress } from '@mui/material'
 
-export default function Loader() {
+export default function Loader({ progress }: { progress: number }) {
   return (
-    <Html center>
+    <Box
+      id="loader"
+      zIndex={2000}
+      position="fixed"
+      top="50%"
+      left="50%"
+      sx={{ transform: 'translate(-50%, -50%)' }}
+    >
       <Box
         display="flex"
         alignItems={'center'}
         justifyContent="center"
         position="relative"
       >
-        <CircularProgress size={170} sx={{ color: '#000000' }} />
+        <CircularProgress size={280} sx={{ color: '#000000' }} />
         <Box
           position={'absolute'}
           sx={{
@@ -19,13 +25,13 @@ export default function Loader() {
             top: '50%',
             left: '50%',
             fontWeight: 900,
-            fontSize: '35px',
+            fontSize: '60px',
             color: '#000000'
           }}
         >
-          LOADING
+          {progress}%
         </Box>
       </Box>
-    </Html>
+    </Box>
   )
 }

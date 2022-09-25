@@ -32,8 +32,8 @@ declare module '@mui/material/styles/createTheme' {
   }
 }
 const FONTS = {
-  title: 'sans-serif!important'
-  // content: 'sans-serif'
+  title: 'Heebo, sans-serif!important',
+  content: 'Heebo, sans-serif!important'
 }
 
 export const theme = {
@@ -157,6 +157,11 @@ export default createTheme({
   ...theme,
   components: {
     ...override
+  },
+  typography: {
+    allVariants: {
+      fontFamily: FONTS.content
+    }
   }
 })
 

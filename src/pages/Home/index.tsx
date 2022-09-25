@@ -2,7 +2,7 @@ import Box from 'components/Box'
 import { Canvas } from '@react-three/fiber'
 // import Pineapple from 'components/Pineapple/Pineapple'
 import Skybox from 'components/Skybox'
-import { Suspense } from 'react'
+import { Suspense, useContext } from 'react'
 import Chrometype from 'components/Chrometype/Chrometype'
 import CameraWork from 'components/CameraWork'
 import { useLocation } from 'react-router-dom'
@@ -16,7 +16,7 @@ import GalleryPage from 'pages/Gallery'
 import SingleWork from 'pages/SingleWork'
 // import Loader from 'components/Loader'
 import React from 'react'
-import Loader from 'components/Loader'
+import { LoaderContext } from 'context/LoaderContext'
 // import BackGlass from 'components/BackGlass'
 
 export default function Home() {
@@ -30,6 +30,7 @@ export default function Home() {
     cssScene,
     bottomPlane
   } = useSkybox()
+  const { setLoaderProgress } = useContext(LoaderContext)
   const isDownMd = useBreakpoint('md')
 
   return (
@@ -71,11 +72,12 @@ export default function Home() {
                 isDownMd={isDownMd}
               />
 
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={null}>
                 <Chrometype
                   isDownMd={isDownMd}
                   pathname={location.pathname}
                   cameraTarget={cameraTarget}
+                  setLoaderProgress={setLoaderProgress}
                 />
               </Suspense>
 

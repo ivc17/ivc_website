@@ -8,7 +8,7 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
 import { GalleryContent } from 'pages/Gallery'
-import { AnimatedBox } from './AnimatedBox'
+import { AnimatedBox2 } from './AnimatedBox'
 
 const textContent = ReactDOMServer.renderToString(<GalleryContent />)
 
@@ -61,7 +61,7 @@ function Top() {
         display: 'flex'
       }}
     >
-      <AnimatedBox>
+      <AnimatedBox2>
         <Typography textAlign={'center'} fontSize={'28px'} component="div">
           <div
             dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
@@ -94,7 +94,7 @@ function Top() {
             }}
           />
         </Typography>
-      </AnimatedBox>
+      </AnimatedBox2>
     </div>
   )
 }

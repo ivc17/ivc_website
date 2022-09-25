@@ -22,13 +22,26 @@ const unitScale = (maxScale - minScale) / (maxWidth - minWidth)
 export default function Chrometype({
   pathname,
   cameraTarget,
-  isDownMd
+  isDownMd,
+  setLoaderProgress
 }: {
   pathname: string
   cameraTarget: Vector3
   isDownMd?: boolean
+  setLoaderProgress: (current: number, total: number) => void
 }) {
-  const { nodes } = useGLTF('/models/ivc17-3.glb') as any
+  const { nodes } = useGLTF(
+    '/models/ivc17-3.glb',
+    true,
+    undefined,
+    (loader) => {
+      if (loader.manager) {
+        loader.manager.onProgress = (progress, current, total) => {
+          setLoaderProgress(current, total)
+        }
+      }
+    }
+  ) as any
   const mesh = useRef<Mesh>(null)
   const scene = useRef<Scene>(null)
   const [nextScale, setNextScale] = useState(maxScale)

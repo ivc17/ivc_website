@@ -14,9 +14,11 @@ const StyledNav = styled('nav')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
+  transformOrigin: 'center center',
   '& button': {
-    '&:hover': {
-      transform: 'scale(-1,1)'
+    '&:hover, :active': {
+      background: 'transparent',
+      transform: 'scale(1.5,1.5) '
     }
   },
   height: 60,

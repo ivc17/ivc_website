@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material'
+import BackButton from 'components/BackButton'
 import Box from 'components/Box'
 import Copy from 'components/Copy'
 import ExternalLink from 'components/ExternalLink'
@@ -17,11 +18,13 @@ export default function ContactPage() {
       onDismiss={() => {
         navigate(routes.home)
       }}
-      height={isDownSm ? undefined : '80vh'}
     >
+      <BackButton />
       <Box
+        maxHeight={isDownSm ? undefined : '80vh'}
         sx={{
-          margin: '0 auto',
+          margin: '0 auto auto',
+          paddingTop: '10%',
           fontWeight: 900,
           '& p, .p': {
             fontWeight: 900,

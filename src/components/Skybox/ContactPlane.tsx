@@ -7,7 +7,7 @@ import { getPlaneArg } from 'utils/getPlaneArgs'
 import ReactDOMServer from 'react-dom/server'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import Box from 'components/Box'
-import { AnimatedBox } from './AnimatedBox'
+import { AnimatedBox2 } from './AnimatedBox'
 
 const textContent = Array.from(Array(20).keys()).reduce((acc) => {
   acc += `EMAIL: ivc1741@gmail.com\nGITHUB: ivc17\nWEBTSITE:https://ivc17.github.io/\n`
@@ -63,7 +63,7 @@ function Contact() {
         display: 'flex'
       }}
     >
-      <AnimatedBox direction="downward">
+      <AnimatedBox2 direction="downward">
         <Box display="grid">
           <div style={{ display: 'flex', gap: '10px' }}>
             <Typography
@@ -118,7 +118,7 @@ function Contact() {
             </Typography>
           </div>
         </Box>
-      </AnimatedBox>
+      </AnimatedBox2>
     </div>
   )
 }

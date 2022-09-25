@@ -6,7 +6,7 @@ import { setPlaneProps } from 'utils/setPlaneProps'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { Typography } from '@mui/material'
 import { getPlaneArg } from 'utils/getPlaneArgs'
-import { AnimatedBox } from './AnimatedBox'
+import { AnimatedBox2 } from './AnimatedBox'
 import { LIST_OF_WORKS } from 'constants/listOfWorks'
 
 const textContent = LIST_OF_WORKS.reduce((acc, { hashtag, technology }) => {
@@ -69,7 +69,7 @@ function Top() {
         alignItems: 'flex-start'
       }}
     >
-      <AnimatedBox>
+      <AnimatedBox2>
         <Typography
           textAlign={'center'}
           fontSize={'28px'}
@@ -81,10 +81,8 @@ function Top() {
           {textContent}
           {textContent}
           {textContent}
-          {textContent}
-          {textContent}
         </Typography>
-      </AnimatedBox>
+      </AnimatedBox2>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { styled, Typography } from '@mui/material'
+import BackButton from 'components/BackButton'
 import Box from 'components/Box'
 import Modal from 'components/Modal'
 import { routes } from 'constants/routes'
@@ -41,6 +42,7 @@ export default function AboutPage() {
         navigate(routes.home)
       }}
     >
+      <BackButton />
       <Box
         sx={{
           fontWeight: 900,
@@ -78,7 +80,18 @@ export default function AboutPage() {
         gap={60}
         width="100%"
       >
-        <Typography fontSize={{ xs: 40, md: 60 }} display="inline-block">
+        <Typography
+          component="h2"
+          fontSize={{ xs: 40, md: 60 }}
+          display="inline-block"
+          fontWeight={900}
+          sx={{
+            background: '#ffffff',
+            border: '1px solid #000000',
+            padding: '10px 20px',
+            width: 'max-content'
+          }}
+        >
           ABOUT ME
         </Typography>
         <AboutContent color="#ffffff" />

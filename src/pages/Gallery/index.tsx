@@ -6,6 +6,7 @@ import {
   Dialog,
   useTheme
 } from '@mui/material'
+import BackButton from 'components/BackButton'
 import Box from 'components/Box'
 // import Modal from 'components/Modal'
 import { LIST_OF_WORKS } from 'constants/listOfWorks'
@@ -26,7 +27,7 @@ const appear = keyframes`
 
 const Title = styled('div')({
   fontSize: 30,
-  fontWeight: 700
+  fontWeight: 900
 })
 const Description = styled('div')({
   fontSize: 24,
@@ -90,6 +91,7 @@ export default function GalleryPage() {
         }
       }}
     >
+      <BackButton />
       <Box
         width="100%"
         padding={{ xs: '40px 0 100px', md: '60px 20px 200px' }}
@@ -266,10 +268,10 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                     >
                       <Typography
                         fontSize={60}
-                        fontWeight={700}
+                        fontWeight={900}
                         textAlign={textAlign[random] as any}
                         sx={{
-                          marginLeft: Math.random() * 70 + '%',
+                          marginLeft: Math.floor(Math.random() * 70) + '%',
                           mixBlendMode: 'exclusion'
                         }}
                       >
@@ -281,7 +283,7 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                           sx={{
                             zindex: random,
                             background: `no-repeat  center/cover url(${gif})`,
-                            left: Math.random() * 50 + '%'
+                            left: Math.floor(Math.random() * 50) + '%'
                           }}
                         />
                       )}
