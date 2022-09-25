@@ -52,14 +52,18 @@
         const el = document.getElementById('cursor')
         el.style.transform = `translate(${e.pageX}px, ${e.pageY}px)`
       }
-      function click(e) {
+      function down(e) {
         const el = document.getElementById('cursor')
-        el.classList.add('click')
-        setTimeout(() => {
-          el.classList.remove('click')
-        }, 1000)
+        el.classList.remove('clickUp')
+        el.classList.add('clickDown')
       }
-      window.addEventListener('click', click)
+      function up(e) {
+        const el = document.getElementById('cursor')
+        el.classList.remove('clickDown')
+        el.classList.add('clickUp')
+      }
+      window.addEventListener('mousedown', down)
+      window.addEventListener('mouseup', up)
       window.addEventListener('mousemove', cursor)
     </script>
   </body>
