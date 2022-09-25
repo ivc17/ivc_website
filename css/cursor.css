@@ -1,0 +1,105 @@
+#cursorWrapper{
+  z-index: 2100;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#cursorWrapper>div{
+  z-index: 2100;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: relative;
+}
+
+
+#cursor {
+  z-index: 2100;
+  position:fixed;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  position: relative;
+}
+
+#cursor *{
+  pointer-events: none;
+}
+
+#cursor img{
+  transform: translate(-60px, -80px);
+  z-index: 1;
+  
+}
+
+#cursor:before {
+  content:'';
+  border-radius:50%;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border:1px solid #000000;
+  background:#ffffff;
+  left:0;
+  pointer-events: none;
+  transform: translate(-40px, -40px);
+}
+
+@keyframes circle {
+  0% {
+  transform:translate(-75px, -75px) scale(0.8) ;
+  }
+  100%{
+    transform:translate(-75px, -75px) scale(0.95);
+}
+}
+
+@keyframes circleClick {
+  0% {
+  transform:translate(-75px, -75px) scale(1) ;
+  }
+  8% {
+    transform:translate(-75px, -75px) scale(1.2) ;
+    }
+ 80%{
+      transform:translate(-75px, -75px) scale(0);
+  }
+100%{
+  transform:translate(-75px, -75px) scale(1);
+}
+}
+
+#cursor:after {
+  content:'';
+  border-radius:50%;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  border:1px solid #000000;
+  top:0;
+  left:0;
+  pointer-events: none;
+  transform: translate(-75px, -75px);
+  z-index: -1;
+  /* animation: circle 0.5s infinite ease-in-out alternate-reverse; */
+  /* animation-delay: 3s; */
+  /* animation-direction: alternate; */
+}
+
+#cursor.click:after {
+  content:'';
+  border-radius:50%;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  border:1px solid #000000;
+  top:0;
+  left:0;
+  pointer-events: none;
+  transform: translate(-75px, -75px);
+  z-index: -1;
+  animation: circleClick 0.5s;
+}

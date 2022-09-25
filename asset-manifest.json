@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.56cbf215.css",
-    "main.js": "/static/js/main.17f27b27.js",
+    "main.css": "/static/css/main.39c87a99.css",
+    "main.js": "/static/js/main.df5b7fe7.js",
     "static/js/529.199b55b6.chunk.js": "/static/js/529.199b55b6.chunk.js",
     "static/media/matcap8.png": "/static/media/matcap8.d79d64ed988b37cf13d0.png",
     "static/media/asf2y.gif": "/static/media/asf2y.fe7a903407291d796533.gif",
@@ -14,14 +14,14 @@
     "static/media/Heebo-Medium.ttf": "/static/media/Heebo-Medium.7ce8ba479cf83916ecea.ttf",
     "static/media/Heebo-Regular.ttf": "/static/media/Heebo-Regular.4dbbe613d25d93d40f37.ttf",
     "static/media/logo.svg": "/static/media/logo.39370810c4533a6ef380a5e919201d92.svg",
-    "static/media/icon.svg": "/static/media/icon.df36b393c5aec177ad5d92e5cf9a15e0.svg",
     "index.html": "/index.html",
-    "main.56cbf215.css.map": "/static/css/main.56cbf215.css.map",
-    "main.17f27b27.js.map": "/static/js/main.17f27b27.js.map",
+    "static/media/icon.svg": "/static/media/icon.df36b393c5aec177ad5d92e5cf9a15e0.svg",
+    "main.39c87a99.css.map": "/static/css/main.39c87a99.css.map",
+    "main.df5b7fe7.js.map": "/static/js/main.df5b7fe7.js.map",
     "529.199b55b6.chunk.js.map": "/static/js/529.199b55b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.56cbf215.css",
-    "static/js/main.17f27b27.js"
+    "static/css/main.39c87a99.css",
+    "static/js/main.df5b7fe7.js"
   ]
 }
