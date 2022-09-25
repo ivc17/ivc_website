@@ -1,4 +1,5 @@
 import { styled, Typography } from '@mui/material'
+import BackButton from 'components/BackButton'
 import Box from 'components/Box'
 import Copy from 'components/Copy'
 import ExternalLink from 'components/ExternalLink'
@@ -39,6 +40,7 @@ export default function SingleWork() {
       onDismiss={() => {}}
       height={work ? undefined : '80vh'}
     >
+      <BackButton to={routes.gallery} />
       {!work && match && (
         <Box
           display="flex"

@@ -18,10 +18,10 @@ export default function Copy(props: Props) {
       sx={{
         display: 'flex',
         cursor: 'pointer',
-        height: 17,
-        '& svg': {
-          mr: '10px'
-        }
+        height: 28
+        // '& svg': {
+        //   mr: '10px'
+        // }
       }}
       onClick={(e) => {
         e.stopPropagation()
@@ -29,9 +29,9 @@ export default function Copy(props: Props) {
       }}
     >
       {isCopied ? (
-        <CheckIcon sx={{ opacity: 0.6, fontSize: 16 }} />
+        <CheckIcon sx={{ opacity: 0.6, fontSize: 28 }} />
       ) : (
-        <ContentCopy sx={{ opacity: 0.6, fontSize: 16 }} />
+        <ContentCopy sx={{ opacity: 0.6, fontSize: 28 }} />
       )}
       {children}
     </Box>

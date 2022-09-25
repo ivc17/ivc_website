@@ -54,14 +54,12 @@ export default function BackPlane({
 
   // useEffect(() => {
   //   cssRef.current?.position.setZ(isDownMd ? 0 : 2000)
-  //   console.log(cssRef.current?.position)
   // }, [isDownMd])
 
   useEffect(() => {
     setPlaneProps('back', ref.current, setPlane, cssRef.current, isDownMd)
     // ref.current?.geometry.computeFaceNormals()
     // light.current.lookAt(ref.current?.position ?? [0, 0, 0])
-    // console.log(111, light.current, ref.current)
   }, [cssScene, isDownMd, setPlane])
 
   return (

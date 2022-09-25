@@ -2,12 +2,12 @@ import { Button } from '@mui/material'
 import { routes } from 'constants/routes'
 import { useNavigate } from 'react-router-dom'
 
-export default function BackButton() {
+export default function BackButton({ to }: { to?: string }) {
   const navigate = useNavigate()
   return (
     <Button
       onClick={() => {
-        navigate(routes.home)
+        navigate(to ?? routes.home)
       }}
       sx={{
         padding: '10px 20px',

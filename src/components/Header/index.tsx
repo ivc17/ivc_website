@@ -16,9 +16,10 @@ const StyledNav = styled('nav')(({ theme }) => ({
   position: 'relative',
   transformOrigin: 'center center',
   '& button': {
+    transition: '.5s',
+    background: 'transparent!important',
     '&:hover, :active': {
-      background: 'transparent',
-      transform: 'scale(1.5,1.5) '
+      transform: 'scale(1.3,1.3) '
     }
   },
   height: 60,
@@ -73,9 +74,7 @@ export default function Header() {
           <StyledNav>
             <Button
               sx={{
-                transition: '.5s',
-                width: { xs: '60px', md: '150px' },
-                background: '#000000'
+                width: { xs: '60px', md: '150px' }
               }}
               onClick={() => {
                 navigate('/')

@@ -1,3 +1,18 @@
+* {
+  cursor: none!important;
+}
+
+::selection {
+  /* Your CSS styles to apply when 
+    user selects content in the HTML */
+  background-color:#000000;
+  color: white;
+}
+
+html {
+  cursor: none!important;
+}
+
 body {
   margin: 0;
   font-family: serif;

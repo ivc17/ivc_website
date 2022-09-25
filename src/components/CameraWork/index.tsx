@@ -105,6 +105,10 @@ export default function CameraWork({
     const onDrag = (e: any) => {
       touchPos.x = e.targetTouches[0].clientX / 200
       touchPos.y = e.targetTouches[0].clientY / 200
+      const el = document.getElementById('cursor')
+      if (el) {
+        el.style.transform = `translate(${e.targetTouches[0].clientX}px, ${e.targetTouches[0].clientY}px)`
+      }
     }
 
     window.addEventListener('touchstart', startDrag)
