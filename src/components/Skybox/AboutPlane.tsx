@@ -19,10 +19,12 @@ const textContent = Array.from(Array(4).keys()).reduce((acc) => {
 
 export default function AboutPlane({
   setPlane,
-  cssScene
+  cssScene,
+  isDownMd
 }: {
   setPlane: SetPlane
   cssScene: Scene
+  isDownMd?: boolean
 }) {
   const ref = useRef<Mesh>()
   const cssRef = useRef<CSS3DObject>()
@@ -49,8 +51,8 @@ export default function AboutPlane({
   }, [cssScene])
 
   useEffect(() => {
-    setPlaneProps('left', ref.current, setPlane, cssRef.current)
-  }, [cssScene, setPlane])
+    setPlaneProps('left', ref.current, setPlane, cssRef.current, isDownMd)
+  }, [cssScene, setPlane, isDownMd])
 
   return (
     <mesh ref={ref} position={[0, 0, 0]} visible={false}>

@@ -19,18 +19,18 @@ export const setPlaneProps = (
   switch (plane) {
     case 'left':
       mesh.rotateY(Math.PI / 2)
-      mesh.position.set(-width / 2, 0, -halfHeight)
+      mesh.position.set(-width / 2, 0, -height*( isDownMd?0.7:0.5))
       mesh.geometry.scale(height, height, 0)
       cssObj?.rotateY(Math.PI / 2)
-      cssObj?.position.set(-width / 2, 0, -halfHeight)
+      cssObj?.position.set(-width / 2, 0, -height*( isDownMd?0.7:0.5))
 
       break
     case 'right':
       mesh.rotateY(-Math.PI / 2)
-      mesh.position.set(width / 2, 0, -halfHeight)
+      mesh.position.set(width / 2, 0, -height*( isDownMd?0.7:0.5))
       mesh.geometry.scale(height, height, 0)
       cssObj?.rotateY(-Math.PI / 2)
-      cssObj?.position.set(width / 2, 0, -halfHeight)
+      cssObj?.position.set(width / 2, 0, -height*( isDownMd?0.7:0.5))
       break
     case 'top':
       mesh.rotateX(Math.PI / 2)

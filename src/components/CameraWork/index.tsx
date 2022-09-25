@@ -9,7 +9,12 @@ import {
 import { routes } from 'constants/routes'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Group, MathUtils, Mesh, Vector3 } from 'three'
-let touchPos = { x: 0, y: 0 }
+import { getPlaneArg } from 'utils/getPlaneArgs'
+const isMobile = window.innerWidth < 600
+
+var mouseTarget = new Vector3()
+var mouseX = 0,
+  mouseY = 0
 
 export function CameraWorkMovement({
   children,
@@ -27,18 +32,20 @@ export function CameraWorkMovement({
       ref.current.rotation.y = MathUtils.lerp(
         ref.current.rotation.y,
         (state.mouse.x * Math.PI) / divider,
-        0.05
+        0.03
       )
       ref.current.rotation.x = MathUtils.lerp(
         ref.current.rotation.x,
         -(state.mouse.y * Math.PI) / divider,
-        0.05
+        0.03
       )
     }
   })
 
   return <group ref={ref}>{children}</group>
 }
+
+const { width, halfHeight } = getPlaneArg()
 
 export default function CameraWork({
   divider = 100,
@@ -60,64 +67,96 @@ export default function CameraWork({
   isDownMd?: boolean
 }) {
   const { camera } = useThree()
-  const [isDrag, setIsDrag] = useState(false)
   const [nextPosition, setNextPosition] = useState(new Vector3(0, 0, 0))
   const [nextCameraPosition, setNextCameraPosition] =
     useState(initCameraPosition)
 
   useFrame((state: RootState) => {
-    pathChange(state, pathname, state.clock.elapsedTime, isDrag)
+    pathChange(pathname, state.clock.elapsedTime)
   })
 
   const pathChange = useCallback(
-    (state: RootState, pathname, time, isDrag: boolean) => {
+    (pathname, time) => {
       camera.lookAt(cameraTarget)
       cameraTarget.lerp(nextPosition, 0.05)
       camera.position.lerp(nextCameraPosition, 0.05)
 
       if (pathname === '/') {
-        // console.log(MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1))
-        camera.rotation.y = MathUtils.lerp(
-          camera.rotation.y,
-          ((isDrag ? touchPos.x : state.mouse.x) * Math.PI) / divider,
-          // 0.05
-          MathUtils.smoothstep(time, -1, 1)
-        )
-        camera.rotation.x = MathUtils.lerp(
-          camera.rotation.x,
-          -(((isDrag ? touchPos.y : state.mouse.y) * Math.PI) / divider) * 1.5,
-          // 0.05
-          MathUtils.smoothstep(time, -1, 1)
-          // MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1)
-        )
+        const moveX = (mouseX - mouseTarget.x) * (isMobile ? 0.001 : 0.0002)
+        const moveY = (-mouseY - mouseTarget.y) * (isMobile ? 0.001 : 0.0002)
+
+        const x = mouseTarget.x
+        const y = mouseTarget.y
+        const targetW = width / (isMobile ? 60 : 80)
+        const targetH = halfHeight / (isMobile ? 25 : 50)
+
+        x + moveX >= targetW
+          ? (mouseTarget.x = targetW)
+          : x + moveX <= -targetW
+          ? (mouseTarget.x = -targetW)
+          : (mouseTarget.x += moveX)
+
+        y + moveY >= targetH
+          ? (mouseTarget.y = targetH)
+          : y + moveY <= -targetH
+          ? (mouseTarget.y = -targetH)
+          : (mouseTarget.y += moveY)
+
+        mouseTarget.z = -10 // assuming the camera is located at ( 0, 0, z );
+
+        camera.lookAt(mouseTarget)
+
+        // camera.rotation.y = MathUtils.lerp(
+        //   camera.rotation.y,
+        //   ((isMobile ? touchPos.x ?? initCameraPosition.y : state.mouse.x) *
+        //     Math.PI) /
+        //     divider,
+        //   // 0.05
+        //   MathUtils.smoothstep(time, -1, 1)
+        // )
+        // camera.rotation.x = MathUtils.lerp(
+        //   camera.rotation.x,
+        //   -(
+        //     ((isMobile ? touchPos.y ?? initCameraPosition.x : state.mouse.y) *
+        //       Math.PI) /
+        //     divider
+        //   ) * 1.5,
+        //   // 0.05
+        //   MathUtils.smoothstep(time, -1, 1)
+        //   // MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1)
+        // )
       }
     },
-    [camera, cameraTarget, divider, nextCameraPosition, nextPosition]
+    [camera, cameraTarget, nextCameraPosition, nextPosition]
   )
 
   useEffect(() => {
-    const startDrag = debounce(() => {
-      setIsDrag(true)
+    const startDrag = debounce((e) => {
+      mouseX = e.touches[0].clientX - window.innerWidth / 2
+      mouseY = e.touches[0].clientY - window.innerHeight / 2
     }, 300)
-    const endDrag = () => {
-      setIsDrag(false)
-    }
+
     const onDrag = (e: any) => {
-      touchPos.x = e.targetTouches[0].clientX / 200
-      touchPos.y = e.targetTouches[0].clientY / 200
+      mouseX = e.touches[0].clientX - window.innerWidth / 2
+      mouseY = e.touches[0].clientY - window.innerHeight / 2
       const el = document.getElementById('cursor')
       if (el) {
         el.style.transform = `translate(${e.targetTouches[0].clientX}px, ${e.targetTouches[0].clientY}px)`
       }
     }
 
+    const onMove = (e: any) => {
+      mouseX = e.clientX - window.innerWidth / 2
+      mouseY = e.clientY - window.innerHeight / 2
+    }
+
     window.addEventListener('touchstart', startDrag)
-    window.addEventListener('touchend', endDrag)
     window.addEventListener('touchmove', onDrag)
+    window.addEventListener('mousemove', onMove)
     return () => {
       window.removeEventListener('touchstart', startDrag)
-      window.removeEventListener('touchend', endDrag)
       window.addEventListener('touchmove', onDrag)
+      window.removeEventListener('mousemove', onMove)
     }
   }, [])
 
