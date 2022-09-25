@@ -23,6 +23,7 @@
   height: 100px;
   pointer-events: none;
   position: relative;
+  transform:translate(30%, 40%);
 }
 
 #cursor *{
