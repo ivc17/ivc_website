@@ -72,12 +72,11 @@ export default function CameraWork({
     useState(initCameraPosition)
 
   useFrame((state: RootState) => {
-    pathChange(pathname, state.clock.elapsedTime)
+    pathChange(pathname)
   })
 
   const pathChange = useCallback(
-    (pathname, time) => {
-      camera.lookAt(cameraTarget)
+    (pathname) => {
       cameraTarget.lerp(nextPosition, 0.05)
       camera.position.lerp(nextCameraPosition, 0.05)
 
@@ -125,6 +124,8 @@ export default function CameraWork({
         //   MathUtils.smoothstep(time, -1, 1)
         //   // MathUtils.smoothstep(Math.abs(Math.sin(time)), 0, 1)
         // )
+      } else {
+        camera.lookAt(cameraTarget)
       }
     },
     [camera, cameraTarget, nextCameraPosition, nextPosition]

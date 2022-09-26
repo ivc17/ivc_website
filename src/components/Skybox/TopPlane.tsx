@@ -14,10 +14,12 @@ const textContent = ReactDOMServer.renderToString(<GalleryContent />)
 
 export default function TopPlane({
   setPlane,
-  cssScene
+  cssScene,
+  isDownMd
 }: {
   setPlane: SetPlane
   cssScene: Scene
+  isDownMd?: boolean
 }) {
   const ref = useRef<Mesh>()
   const cssRef = useRef<CSS3DObject>()
@@ -39,8 +41,8 @@ export default function TopPlane({
   }, [cssScene])
 
   useEffect(() => {
-    setPlaneProps('top', ref.current, setPlane, cssRef.current)
-  }, [cssScene, setPlane])
+    setPlaneProps('top', ref.current, setPlane, cssRef.current, isDownMd)
+  }, [cssScene, setPlane, isDownMd])
 
   return (
     <mesh ref={ref} position={[0, 0, 0]} visible={false}>

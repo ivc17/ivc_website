@@ -46,8 +46,12 @@ export default function Skybox({
           cssScene={cssScene}
           isDownMd={isDownMd}
         />
-        <TopPlane setPlane={setPlane} cssScene={cssScene} />
-        <BottomPlane setPlane={setPlane} cssScene={cssScene} />
+        <TopPlane setPlane={setPlane} cssScene={cssScene} isDownMd={isDownMd} />
+        <BottomPlane
+          setPlane={setPlane}
+          cssScene={cssScene}
+          isDownMd={isDownMd}
+        />
       </scene>
     </>
   )

@@ -90,8 +90,10 @@ export const override: any = {
       body: {
         backgroundColor: theme.palette.background.default,
         fontSize: 16,
-        overflow: 'auto!important',
-        paddingRight: '0px!important'
+        paddingRight: '0px!important',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        overflow: 'auto!important'
       },
       'html, input, textarea, button, body': {
         fontFamily: FONTS.title,

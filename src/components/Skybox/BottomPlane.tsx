@@ -22,10 +22,12 @@ const textContent = LIST_OF_WORKS.reduce((acc, { hashtag, technology }) => {
 
 export default function BottomPlane({
   setPlane,
-  cssScene
+  cssScene,
+  isDownMd
 }: {
   setPlane: SetPlane
   cssScene: Scene
+  isDownMd?: boolean
 }) {
   const ref = useRef<Mesh>()
   const cssRef = useRef<CSS3DObject>()
@@ -33,7 +35,7 @@ export default function BottomPlane({
   useEffect(() => {
     const { height, width } = getPlaneArg()
 
-    const str = ReactDOMServer.renderToString(<Top />)
+    const str = ReactDOMServer.renderToString(<Bottom />)
 
     const element = document.createElement('div')
     element.innerHTML = str
@@ -47,8 +49,8 @@ export default function BottomPlane({
   }, [cssScene])
 
   useEffect(() => {
-    setPlaneProps('bottom', ref.current, setPlane, cssRef.current)
-  }, [cssScene, setPlane])
+    setPlaneProps('bottom', ref.current, setPlane, cssRef.current, isDownMd)
+  }, [cssScene, setPlane, isDownMd])
 
   return (
     <mesh ref={ref} position={[0, 0, 0]} visible={false}>
@@ -57,7 +59,7 @@ export default function BottomPlane({
   )
 }
 
-function Top() {
+function Bottom() {
   return (
     <div
       style={{

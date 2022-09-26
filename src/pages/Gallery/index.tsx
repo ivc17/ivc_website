@@ -25,6 +25,11 @@ const appear = keyframes`
 100% {opacity: 0};
 `
 
+const drop = keyframes`
+0% {transform: translateY(-300vh)};
+100% {transform: translateY(0)};
+`
+
 const Title = styled('div')({
   fontSize: 30,
   fontWeight: 900
@@ -55,6 +60,26 @@ const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   width: 480,
   height: 274,
   filter: 'saturate(0)'
+}))
+
+const Card = styled(Box)(({ theme }) => ({
+  boxShadow: '0 0 20px #00000010',
+  background: theme.palette.background.paper,
+  border: '1px solid #000000',
+  '& img': {
+    width: '100%',
+    objectFit: 'contain'
+  },
+  width: '100%',
+  maxWidth: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    width: '80%',
+    maxWidth: '80%'
+  },
+  transform: 'translateY(-300vh)',
+  animation: `${drop} 0.5s ease-out forwards`
 }))
 
 export default function GalleryPage() {
@@ -118,30 +143,23 @@ export default function GalleryPage() {
             '&>div:nth-of-type(-n+3)': {
               marginTop: 0
             },
-            '&>div:nth-of-type(3n)': {
+            '&>div:nth-of-type(3n-2)': {
               marginLeft: 0
             }
           }}
         >
-          {LIST_OF_WORKS.map(({ title, hashtag, param, gif }) => {
+          {LIST_OF_WORKS.map(({ title, hashtag, param, gif }, idx) => {
             const random = Math.round(Math.random() * 3)
             return (
               <React.Fragment key={title}>
-                <Box
+                <Card
                   sx={{
-                    boxShadow: '0 0 20px #00000010',
-                    background: (theme) => theme.palette.background.paper,
-                    border: '1px solid #000000',
-                    '& img': {
-                      width: '100%',
-                      objectFit: 'contain'
+                    justifySelf: {
+                      xs: textAlign[random - 1],
+                      md: 'flex-start'
                     },
-                    width: { xs: '80%', sm: '100%' },
-                    maxWidth: { xs: '80%', sm: '100%' }
+                    animationDelay: 1 - (idx / 10) * Math.random() + 's'
                   }}
-                  display="flex"
-                  flexDirection={'column'}
-                  justifySelf={{ xs: textAlign[random - 1], md: 'flex-start' }}
                 >
                   {' '}
                   <img src={gif} alt={title} />
@@ -184,7 +202,7 @@ export default function GalleryPage() {
                   >
                     MORE
                   </Button>
-                </Box>
+                </Card>
                 {Array.from(Array(random).keys()).map((_, idx) => (
                   <div key={idx} />
                 ))}
@@ -208,12 +226,6 @@ export function GalleryContent({ color = '#000000' }: { color?: string }) {
         '& p, div': {
           maxWidth: '100%',
           wordBreak: 'break-all'
-        },
-        '& a': {
-          color: color,
-          '&:hover': {
-            textShadow: '0 0 15px ' + color
-          }
         }
       }}
     >
@@ -242,9 +254,6 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
             gap={'40px'}
             justifyItems="center"
             sx={{
-              '& p, div': {
-                // fontSize: 28
-              },
               '& a': {
                 color: color
               },
@@ -283,7 +292,7 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                           sx={{
                             zindex: random,
                             background: `no-repeat  center/cover url(${gif})`,
-                            left: Math.floor(Math.random() * 50) + '%'
+                            left: Math.floor(Math.random() + 0.1 * 50) + '%'
                           }}
                         />
                       )}
