@@ -44,19 +44,19 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   }, [pathname, progress])
 
   useEffect(() => {
-    let path = '/' + localStorage.getItem('path')
-    if (path) {
-      localStorage.removeItem('path')
-      if (
-        !path.includes(routes.gallery) &&
-        !path.includes(routes.about) &&
-        !path.includes(routes.contact) &&
-        path !== '/'
-      ) {
-        return navigate('/')
-      }
-      navigate(path)
+    let path = localStorage.getItem('path')
+
+    localStorage.removeItem('path')
+    if (('/' + path).includes(routes.gallery)) {
+      return navigate('/' + path)
     }
+    if (('/' + path).includes(routes.about)) {
+      return navigate('/' + path)
+    }
+    if (('/' + path).includes(routes.contact)) {
+      return navigate('/' + path)
+    }
+    return navigate('/')
   }, [navigate])
 
   return (
