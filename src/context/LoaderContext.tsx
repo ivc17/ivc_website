@@ -55,7 +55,7 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
       ) {
         return navigate('/')
       }
-      navigate('/' + path)
+      navigate(path)
     }
   }, [navigate])
 
