@@ -127,7 +127,7 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
           <span>
             IVC17, a Taipei based creative web developer/designer who loves the
             digital space, and is all about being experimental and create crazy
-            visuals in the virtual space.
+            visuals in the digital space.
           </span>
           <br />
           <br />
