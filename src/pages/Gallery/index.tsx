@@ -293,7 +293,7 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                         sx={{
                           zindex: random,
                           background: `no-repeat  center/cover url(${gif})`,
-                          left: Math.floor((Math.random() + 0.1) * 50) + '%'
+                          left: Math.floor((Math.random() + 0.03) * 50) + '%'
                         }}
                       />
                     )}
