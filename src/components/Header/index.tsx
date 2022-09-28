@@ -108,7 +108,7 @@ export default function Header() {
                 fontWeight: 700
               }}
             >
-              GALLEY
+              GALLERY
             </Button>
             <Button
               onClick={() => {

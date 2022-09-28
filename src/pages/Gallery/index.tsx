@@ -78,7 +78,7 @@ const Card = styled(Box)(({ theme }) => ({
     width: '80%',
     maxWidth: '80%'
   },
-  transform: 'translateY(-300vh)',
+  transform: 'translateY(-1000vh)',
   animation: `${drop} 0.5s ease-out forwards`
 }))
 
@@ -126,7 +126,7 @@ export default function GalleryPage() {
       >
         <Box>
           <Typography fontSize={'13vw'} fontWeight={900} color="#000000">
-            GALLEY
+            GALLERY
           </Typography>
         </Box>
         <Box

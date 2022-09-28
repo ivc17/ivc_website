@@ -49,15 +49,15 @@ export const LIST_OF_WORKS = [
     param: 'white_noise',
     hashtag: 'Experimental, PersonalProject, Study, Generative'
   },
-  {
-    title: '芸術は爆発だ (Art is an Explosion)',
-    description: (
-      <>Pure JavaScript scroll trigger animations. And use of sprite. </>
-    ),
-    technology: 'Pixi.js, JavaScript',
-    param: 'art-is-explosion',
-    hashtag: 'ScrollTrigger, VanillaJS, PersonalProject'
-  },
+  // {
+  //   title: '芸術は爆発だ (Art is an Explosion)',
+  //   description: (
+  //     <>Pure JavaScript scroll trigger animations. And use of sprite. </>
+  //   ),
+  //   technology: 'Pixi.js, JavaScript',
+  //   param: 'art-is-explosion',
+  //   hashtag: 'ScrollTrigger, VanillaJS, PersonalProject'
+  // },
   {
     title: 'Coffee Party',
     description: (

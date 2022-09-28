@@ -145,7 +145,7 @@ export function AboutContent({ color = '#000000' }: { color?: string }) {
         </Typography>
         <Box mt={'20px'}>
           <Typography textAlign={'right'} width="100%" component="div">
-            <span>I'm always intersted in these:</span>
+            <span>I'm always interested in these:</span>
           </Typography>
           <Typography component="div" maxWidth="100%">
             <Box

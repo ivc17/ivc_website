@@ -10,7 +10,7 @@ import Box from 'components/Box'
 import { AnimatedBox2 } from './AnimatedBox'
 
 const textContent = Array.from(Array(20).keys()).reduce((acc) => {
-  acc += `EMAIL: ivc1741@gmail.com\nGITHUB: ivc17\nWEBTSITE:https://ivc17.github.io/\n`
+  acc += `EMAIL: ivc1741@gmail.com\nGITHUB: ivc17\nWEBSITE: https://ivc17.github.io/\n`
   return acc
 }, '')
 
