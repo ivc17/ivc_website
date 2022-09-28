@@ -55,7 +55,7 @@ export default function SingleWork() {
               border: '1px solid #000000',
               padding: '10px 20px',
               width: 'max-content',
-              fontSize: 60
+              fontSize: { xs: 24, md: 60 }
             }
           }}
         >
@@ -65,7 +65,7 @@ export default function SingleWork() {
             sx={{
               borderRadius: '50%',
               border: '20px solid #000000',
-              fontSize: { xs: '36px', md: '170px' },
+              fontSize: '170px',
               fontWeight: 900,
               color: '#000000',
               background: '#ffffff'
@@ -88,7 +88,7 @@ export default function SingleWork() {
         <Box
           sx={{
             width: '100%',
-            margin: '0 auto',
+            margin: { xs: '0 auto', md: '60px auto 0' },
             fontWeight: 900 + '!important',
             maxWidth: (theme) => theme.width.maxContent,
             '& h1, .p': {

@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material'
-import Box from 'components/Box'
 
 export default function Footer() {
   return (
