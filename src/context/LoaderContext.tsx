@@ -44,7 +44,7 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   }, [pathname, progress])
 
   useEffect(() => {
-    let path = localStorage.getItem('path')
+    let path = '/' + localStorage.getItem('path')
     if (path) {
       localStorage.removeItem('path')
       if (
