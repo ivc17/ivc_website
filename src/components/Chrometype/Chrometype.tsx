@@ -23,12 +23,14 @@ export default function Chrometype({
   pathname,
   cameraTarget,
   isDownMd,
-  setLoaderProgress
+  setLoaderProgress,
+  finishLoading
 }: {
   pathname: string
   cameraTarget: Vector3
   isDownMd?: boolean
   setLoaderProgress: (current: number, total: number) => void
+  finishLoading?: boolean
 }) {
   const { nodes } = useGLTF(
     '/models/ivc17-3.glb',
@@ -58,6 +60,9 @@ export default function Chrometype({
   const matcapTexture = useLoader(TextureLoader, matcapURL)
 
   const resize = useCallback(() => {
+    if (!finishLoading) {
+      return 0
+    }
     let scale = maxScale
     if (window.innerWidth >= maxWidth) {
       scale = maxScale
@@ -67,7 +72,7 @@ export default function Chrometype({
       scale = minScale + unitScale * (window.innerWidth - minWidth)
     }
     return scale
-  }, [])
+  }, [finishLoading])
 
   useFrame(({ clock, mouse }) => {
     // light.current.lookAt(mesh.current?.position)
@@ -132,7 +137,7 @@ export default function Chrometype({
   return (
     <Suspense fallback={null}>
       <CameraWorkMovement disable={pathname !== '/'} divider={20}>
-        <group ref={scene}>
+        <group ref={scene} visible={finishLoading}>
           {/* <spotLight
             ref={light}
             color="#ffffff"

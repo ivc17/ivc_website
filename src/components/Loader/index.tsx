@@ -1,5 +1,7 @@
 import Box from 'components/Box'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Typography } from '@mui/material'
+
+var isMobile = require('is-mobile')()
 
 export default function Loader({ progress }: { progress: number }) {
   return (
@@ -32,6 +34,9 @@ export default function Loader({ progress }: { progress: number }) {
           {progress}%
         </Box>
       </Box>
+      <Typography sx={{ fontWeight: 900, fontSize: '30px' }} textAlign="center">
+        {isMobile ? 'Tap/drag around' : 'Try moving around'}
+      </Typography>
     </Box>
   )
 }

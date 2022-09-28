@@ -64,6 +64,10 @@
         el.classList.remove('clickDown')
         el.classList.add('clickUp')
       }
+
+      const el = document.getElementById('cursor')
+      el.style.transform = `translate(${200}px, ${200}px)`
+
       window.addEventListener('mousedown', down)
       window.addEventListener('mouseup', up)
       window.addEventListener('mousemove', cursor)

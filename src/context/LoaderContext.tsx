@@ -3,10 +3,12 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 
 interface LoaderContextType {
   setLoaderProgress: (current: number, total: number) => void
+  finishLoading: boolean
 }
 
 export const LoaderContext = React.createContext<LoaderContextType>({
-  setLoaderProgress: () => {}
+  setLoaderProgress: () => {},
+  finishLoading: false
 })
 
 export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
@@ -19,16 +21,17 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
 
   const val = useMemo(
     () => ({
-      setLoaderProgress
+      setLoaderProgress,
+      finishLoading: !display
     }),
-    [setLoaderProgress]
+    [display, setLoaderProgress]
   )
 
   useEffect(() => {
     if (progress === 100) {
       setTimeout(() => {
         setDisplay(false)
-      }, 1000)
+      }, 2000)
     }
   }, [progress])
 

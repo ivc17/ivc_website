@@ -30,7 +30,7 @@ export default function Home() {
     cssScene,
     bottomPlane
   } = useSkybox()
-  const { setLoaderProgress } = useContext(LoaderContext)
+  const { setLoaderProgress, finishLoading } = useContext(LoaderContext)
   const isDownMd = useBreakpoint('md')
 
   return (
@@ -78,6 +78,7 @@ export default function Home() {
                   pathname={location.pathname}
                   cameraTarget={cameraTarget}
                   setLoaderProgress={setLoaderProgress}
+                  finishLoading={finishLoading}
                 />
               </Suspense>
 
