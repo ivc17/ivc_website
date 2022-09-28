@@ -11,7 +11,6 @@ import { Link, useLocation } from 'react-router-dom'
 
 const Capsule = styled('div')(({ theme }) => ({
   border: '1px solid #000000',
-  color: '#000000',
   background: '#ffffff',
   fontSize: 28,
   padding: '10px 20px',
@@ -114,8 +113,7 @@ export default function SingleWork() {
             component="h1"
             fontWeight={900}
             sx={{
-              padding: '10px 20px',
-              color: '#000000'
+              padding: '10px 20px'
             }}
           >
             {work.title}
@@ -195,9 +193,6 @@ export default function SingleWork() {
               top={{ xs: '-46px', md: '-60px' }}
               width="max-content"
               padding="10px 20px"
-              sx={{
-                color: '#000000'
-              }}
             >
               MAIN Technologies:
             </Typography>
