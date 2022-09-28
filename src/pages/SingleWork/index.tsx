@@ -65,7 +65,7 @@ export default function SingleWork() {
             sx={{
               borderRadius: '50%',
               border: '20px solid #000000',
-              fontSize: '170px',
+              fontSize: { xs: '36px', md: '170px' },
               fontWeight: 900,
               color: '#000000',
               background: '#ffffff'

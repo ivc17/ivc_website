@@ -2,10 +2,10 @@ import Box from 'components/Box'
 import { Canvas } from '@react-three/fiber'
 // import Pineapple from 'components/Pineapple/Pineapple'
 import Skybox from 'components/Skybox'
-import { Suspense, useContext } from 'react'
+import { Suspense, useContext, useEffect } from 'react'
 import Chrometype from 'components/Chrometype/Chrometype'
 import CameraWork from 'components/CameraWork'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { defaultZoom, initCameraPosition } from 'constants/index'
 import useSkybox from 'hooks/useSkybox'
 import SkyboxCSSRender from './SkyboxCssRenderer'
@@ -32,6 +32,15 @@ export default function Home() {
   } = useSkybox()
   const { setLoaderProgress, finishLoading } = useContext(LoaderContext)
   const isDownMd = useBreakpoint('md')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    let path = localStorage.getItem('path')
+    if (path) {
+      localStorage.removeItem('path')
+      navigate('/' + path)
+    }
+  }, [navigate])
 
   return (
     <>
