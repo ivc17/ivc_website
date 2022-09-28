@@ -21,7 +21,8 @@ const appear = keyframes`
 1% {opacity: 1};
 40% {opacity: 0};
 50% {opacity: 1};
-90% {opacity: 1};
+80% {opacity: 1};
+81% {opacity: 0};
 100% {opacity: 0};
 `
 
@@ -52,7 +53,7 @@ const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   transform: 'translate(0, 0)',
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
-  animation: `${appear} 15s infinite`,
+  animation: `${appear} 10s infinite`,
   animationDelay: delay + 's',
   opacity: 0,
   left: '50%',
@@ -254,52 +255,51 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
             gap={'40px'}
             justifyItems="center"
             sx={{
+              width: '100%',
               '& a': {
                 color: color
               },
               zIndex: 1000
             }}
           >
-            <Typography component="div">
-              {LIST_OF_WORKS.map(
-                ({ title, description, technology, gif }, idx) => {
-                  const random = Math.abs(Math.round(Math.random() * 3 - 1))
-                  return (
-                    <Box
-                      key={title}
+            <Typography component="div" width="90%">
+              {LIST_OF_WORKS.map(({ title, gif }, idx) => {
+                const random = Math.abs(Math.round(Math.random() * 3 - 1))
+                return (
+                  <Box
+                    key={title}
+                    sx={{
+                      '&:hover': {
+                        background: 'red'
+                      },
+                      overflow: 'visible',
+                      position: 'relative'
+                    }}
+                  >
+                    <Typography
+                      fontSize={60}
+                      fontWeight={900}
+                      textAlign={textAlign[random] as any}
                       sx={{
-                        '&:hover': {
-                          background: 'red'
-                        },
-                        overflow: 'visible',
-                        position: 'relative'
+                        marginLeft: Math.floor(Math.random() * 60) + '%',
+                        mixBlendMode: 'exclusion'
                       }}
                     >
-                      <Typography
-                        fontSize={60}
-                        fontWeight={900}
-                        textAlign={textAlign[random] as any}
+                      {title}
+                    </Typography>
+                    {gif && (
+                      <Img
+                        delay={idx + idx * Math.random() * random}
                         sx={{
-                          marginLeft: Math.floor(Math.random() * 70) + '%',
-                          mixBlendMode: 'exclusion'
+                          zindex: random,
+                          background: `no-repeat  center/cover url(${gif})`,
+                          left: Math.floor((Math.random() + 0.1) * 50) + '%'
                         }}
-                      >
-                        {title}
-                      </Typography>
-                      {gif && (
-                        <Img
-                          delay={idx + idx * Math.random() * random}
-                          sx={{
-                            zindex: random,
-                            background: `no-repeat  center/cover url(${gif})`,
-                            left: Math.floor(Math.random() + 0.1 * 50) + '%'
-                          }}
-                        />
-                      )}
-                    </Box>
-                  )
-                }
-              )}
+                      />
+                    )}
+                  </Box>
+                )
+              })}
             </Typography>
           </Box>
         )

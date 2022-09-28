@@ -7,6 +7,7 @@ import ReactDOMServer from 'react-dom/server'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { GalleryContent2 } from 'pages/Gallery'
 import { AnimatedBox } from './AnimatedBox'
+import Box from 'components/Box'
 
 const textContent = ReactDOMServer.renderToString(<GalleryContent2 />)
 
@@ -71,40 +72,50 @@ export default function BackPlane({
 
 function Gallery() {
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
+        '&>div': {
+          width: '100%'
+        },
+        '& .wrap': {
+          width: '100%'
+        }
       }}
     >
       <AnimatedBox>
         <div
+          className={'wrap'}
           dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
           style={{
             height: 'max-content'
           }}
         />
         <div
+          className={'wrap'}
           dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
           style={{
             height: 'max-content'
           }}
         />
         <div
+          className={'wrap'}
           dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
           style={{
             height: 'max-content'
           }}
         />
         <div
+          className={'wrap'}
           dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
           style={{
             height: 'max-content'
           }}
         />
       </AnimatedBox>
-    </div>
+    </Box>
   )
 }
