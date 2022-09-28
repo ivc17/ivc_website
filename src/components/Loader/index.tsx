@@ -34,7 +34,10 @@ export default function Loader({ progress }: { progress: number }) {
           {progress}%
         </Box>
       </Box>
-      <Typography sx={{ fontWeight: 900, fontSize: '30px' }} textAlign="center">
+      <Typography
+        sx={{ fontWeight: 900, fontSize: '30px', color: '#000000' }}
+        textAlign="center"
+      >
         {isMobile ? 'Tap/drag around' : 'Try moving around'}
       </Typography>
     </Box>

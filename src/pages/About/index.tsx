@@ -6,7 +6,7 @@ import { routes } from 'constants/routes'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Capsule = styled('div')<{ color: string }>(({ theme, color }) => ({
-  border: '1px solid ' + color,
+  border: '1px solid #232323',
   borderRadius: 60,
   width: 'max-content',
   padding: '6px 20px',

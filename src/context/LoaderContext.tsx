@@ -1,6 +1,7 @@
 import Loader from 'components/Loader'
+import { routes } from 'constants/routes'
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface LoaderContextType {
   setLoaderProgress: (current: number, total: number) => void
@@ -17,6 +18,7 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   const [display, setDisplay] = useState(true)
 
   const { pathname } = useLocation()
+  const navigate = useNavigate()
 
   const setLoaderProgress = useCallback((current: number, total: number) => {
     setProgress(Math.ceil((current / total) * 100))
@@ -40,6 +42,22 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
       }, 2000)
     }
   }, [pathname, progress])
+
+  useEffect(() => {
+    let path = localStorage.getItem('path')
+    if (path) {
+      localStorage.removeItem('path')
+      if (
+        !path.includes(routes.gallery) &&
+        !path.includes(routes.about) &&
+        !path.includes(routes.contact) &&
+        path !== '/'
+      ) {
+        return navigate('/')
+      }
+      navigate('/' + path)
+    }
+  }, [navigate])
 
   return (
     <LoaderContext.Provider value={val}>
