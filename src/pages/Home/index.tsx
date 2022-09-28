@@ -97,7 +97,8 @@ export default function Home() {
           width: '100%',
           height: '100%',
           position: 'fixed',
-          zIndex: -1
+          zIndex: -1,
+          overflow: 'hidden'
         }}
         sx={{
           // '&:after': {

@@ -60,7 +60,7 @@ export const theme = {
 
   height: {
     header: '100px',
-    mobileHeader: '80px',
+    mobileHeader: '60px',
     footer: '60px'
   },
   width: {

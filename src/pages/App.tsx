@@ -9,16 +9,22 @@ function App() {
   return (
     <>
       <Box>
-        <LoaderProvider>
-          <SkyboxProvider>
-            <BrowserRouter>
-              <Header />
-              <Routes>
-                <Route path={'*'} element={<Home />} />
-              </Routes>
-            </BrowserRouter>
-          </SkyboxProvider>
-        </LoaderProvider>
+        <SkyboxProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route
+                path={'*'}
+                element={
+                  <LoaderProvider>
+                    <Home />
+                  </LoaderProvider>
+                }
+              />
+            </Routes>
+            {/* <Footer /> */}
+          </BrowserRouter>
+        </SkyboxProvider>
       </Box>
     </>
   )

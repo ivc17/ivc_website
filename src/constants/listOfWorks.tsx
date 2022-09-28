@@ -5,11 +5,14 @@ import susi from 'assets/works/susi.gif'
 import coffee from 'assets/works/coffee.gif'
 import Asf2y from './works/Asf2y'
 import CryptoLog from './works/CryptoLog'
+import Susi from './works/Susi'
+import Coffee from './works/Coffee'
+import WhiteNoise from './works/WhiteNoise'
 
 export const LIST_OF_WORKS = [
   {
     title: 'SUSISOMOS',
-    description: <>Official website for jewellery brand SUSISOMOS.</>,
+    description: <Susi />,
     technology: 'Next.js, Pixi.js',
     gif: susi,
     link: 'https://www.susisomos.com/',
@@ -36,13 +39,7 @@ export const LIST_OF_WORKS = [
   },
   {
     title: 'White_Noise',
-    description: (
-      <>
-        Explore image possibility’s with only grayscale colors. An react three
-        fiber based experiment to test out object manipulation with react
-        mechanism. Also explores noise, curve, shaders and other techniques.{' '}
-      </>
-    ),
+    description: <WhiteNoise />,
     technology: 'React, React-Three-Fiber, Three.js, GLSL',
     gif: whiteNoise,
     link: 'https://ivc17.github.io/whiteNoise/',
@@ -60,12 +57,7 @@ export const LIST_OF_WORKS = [
   // },
   {
     title: 'Coffee Party',
-    description: (
-      <>
-        Single page website based on SUSISOMOS AW2022 collection subset coffee
-        break. A practice piece based purely on css animation.
-      </>
-    ),
+    description: <Coffee />,
     technology: 'Blender, Next.js, CSS',
     link: 'https://coffee-party-delta.vercel.app/',
     param: 'coffee-party',
