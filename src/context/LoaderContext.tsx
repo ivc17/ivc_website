@@ -30,7 +30,7 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
         setDisplay(false)
       }, 1000)
     }
-  })
+  }, [progress])
 
   return (
     <LoaderContext.Provider value={val}>
