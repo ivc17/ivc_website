@@ -156,6 +156,13 @@ export default function SingleWork() {
                 height: { xs: 100, sm: 162, md: 243, lg: 328, xl: 387 },
                 objectFit: 'cover'
               },
+              '& .third video,.third img': {
+                width: '100%',
+                mt: 20,
+                background: `#000000`,
+                height: { xs: 66.7, sm: 108, md: 243, lg: 216, xl: 258.3 },
+                objectFit: 'cover'
+              },
               '& p': {
                 padding: {
                   xs: '0 20px',

@@ -58,8 +58,8 @@ const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   opacity: 0,
   left: '50%',
   top: '-50%',
-  width: 480,
-  height: 274,
+  width: 380,
+  height: 216,
   filter: 'saturate(0)'
 }))
 
@@ -131,12 +131,14 @@ export default function GalleryPage() {
           </Typography>
         </Box>
         <Box
+          width={'100%'}
           display="grid"
           gridTemplateColumns={{ xs: '100%', sm: '33.33% 33.33% 33.33%' }}
           maxWidth={theme.width.maxContent}
           rowGap={{ xs: 20, sm: 0 }}
           columnGap={{ xs: 20, sm: 0 }}
           sx={{
+            animation: `${drop} 0.5s ease-out forwards`,
             '&>div': {
               marginTop: { xs: 0, sm: -1 },
               marginLeft: { xs: 0, sm: -1 }
@@ -154,17 +156,24 @@ export default function GalleryPage() {
             return (
               <React.Fragment key={title}>
                 <Card
+                  onClick={() => {
+                    navigate(routes.singlWork.replace(':work', param))
+                  }}
                   sx={{
                     justifySelf: {
                       xs: textAlign[random - 1],
                       md: 'flex-start'
                     },
-                    animationDelay: 1 - (idx / 10) * Math.random() + 's'
+                    animationDelay: 1 - (idx / 10) * Math.random() + 's',
+
+                    '&:hover': {
+                      filter: ' invert(100%) saturate(100%) brightness(80%)'
+                    }
                   }}
                 >
                   {' '}
                   <img src={gif} alt={title} />
-                  <Box padding="10px" mb={16}>
+                  <Box padding="10px">
                     <Typography
                       fontSize={{ xs: 25, md: 30 }}
                       whiteSpace="break-spaces"
@@ -186,22 +195,26 @@ export default function GalleryPage() {
                   </Box>
                   <Button
                     sx={{
-                      textAlign: 'center',
+                      justifyContent: 'flex-end',
                       width: '100%',
-                      borderTop: '1px solid #000000',
-                      marginTop: 'auto!important',
+                      // borderTop: '1px solid #000000',
+                      // marginTop: 'auto!important',
                       justifySelf: 'flex-end',
-                      transition: '.5s',
-                      '&:hover': {
-                        color: '#ffffff',
-                        background: '#000000'
-                      }
-                    }}
-                    onClick={() => {
-                      navigate(routes.singlWork.replace(':work', param))
+                      transition: '.5s'
                     }}
                   >
-                    MORE
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      viewBox="0 0 512 243.58"
+                      style={{ width: '40px', margin: '0 10px 20px' }}
+                    >
+                      <path
+                        fill-rule="nonzero"
+                        d="M373.57 0 512 120.75 371.53 243.58l-20.92-23.91 94.93-83L0 137.09v-31.75l445.55-.41-92.89-81.02z"
+                      />
+                    </svg>
                   </Button>
                 </Card>
                 {Array.from(Array(random).keys()).map((_, idx) => (
@@ -293,7 +306,7 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                         sx={{
                           zindex: random,
                           background: `no-repeat  center/cover url(${gif})`,
-                          left: Math.floor((Math.random() + 0.03) * 50) + '%'
+                          left: Math.floor(0.1 + Math.random() * 60) + '%'
                         }}
                       />
                     )}

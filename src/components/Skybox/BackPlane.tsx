@@ -108,13 +108,6 @@ function Gallery() {
             height: 'max-content'
           }}
         />
-        <div
-          className={'wrap'}
-          dangerouslySetInnerHTML={{ __html: textContent ?? '' }}
-          style={{
-            height: 'max-content'
-          }}
-        />
       </AnimatedBox>
     </Box>
   )

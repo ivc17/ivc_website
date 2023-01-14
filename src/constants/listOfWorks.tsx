@@ -8,6 +8,8 @@ import CryptoLog from './works/CryptoLog'
 import Susi from './works/Susi'
 import Coffee from './works/Coffee'
 import WhiteNoise from './works/WhiteNoise'
+import WuNaiNull from './works/WuNaiNull'
+import wuNaiNull from 'assets/works/wu-nai-null.gif'
 
 export const LIST_OF_WORKS = [
   {
@@ -55,6 +57,15 @@ export const LIST_OF_WORKS = [
   //   param: 'art-is-explosion',
   //   hashtag: 'ScrollTrigger, VanillaJS, PersonalProject'
   // },
+  {
+    title: '無 ない NULL',
+    description: <WuNaiNull />,
+    technology: 'React, GSAP, Three.js, Illustrator',
+    link: 'https://ivc17.github.io/wu-nai-null/',
+    param: 'wu-nai-null',
+    gif: wuNaiNull,
+    hashtag: 'Font Design, Transition'
+  },
   {
     title: 'Coffee Party',
     description: <Coffee />,

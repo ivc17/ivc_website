@@ -4,10 +4,10 @@ export const AnimatedBox = styled('div')<{ direction?: 'upward' | 'downward' }>(
   ({ direction }) => ({
     '@keyframes animatedBox': {
       from: {
-        transform: 'translateY(0%)'
+        transform: 'translateY(-16.666%)'
       },
       to: {
-        transform: 'translateY(-50%)'
+        transform: 'translateY(-83.333%)'
       }
     },
     animation: 'animatedBox 20s infinite linear',
