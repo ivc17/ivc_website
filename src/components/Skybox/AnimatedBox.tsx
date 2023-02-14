@@ -7,11 +7,11 @@ export const AnimatedBox = styled('div')<{ direction?: 'upward' | 'downward' }>(
         transform: 'translateY(-16.666%)'
       },
       to: {
-        transform: 'translateY(-83.333%)'
+        transform: 'translateY(-50%)'
       }
     },
     animation: 'animatedBox 20s infinite linear',
-    animationDirection: direction === 'downward' ? 'reverse' : 'inherit',
+    animationDirection: direction === 'downward' ? 'alternate' : 'alternate',
     position: 'absolute'
   })
 )

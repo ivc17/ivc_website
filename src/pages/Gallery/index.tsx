@@ -16,15 +16,15 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const textAlign = ['center', 'left', 'right']
 
-const appear = keyframes`
-0% {opacity: 0};
-1% {opacity: 1};
-40% {opacity: 0};
-50% {opacity: 1};
-80% {opacity: 1};
-81% {opacity: 0};
-100% {opacity: 0};
-`
+// const appear = keyframes`
+// 0% {opacity: 0};
+// 1% {opacity: 1};
+// 40% {opacity: 0};
+// 50% {opacity: 1};
+// 80% {opacity: 1};
+// 81% {opacity: 0};
+// 100% {opacity: 0};
+// `
 
 const drop = keyframes`
 0% {transform: translateY(-300vh)};
@@ -53,9 +53,10 @@ const Img = styled(Box)<{ delay: number }>(({ delay, theme }) => ({
   transform: 'translate(0, 0)',
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
-  animation: `${appear} 10s infinite`,
-  animationDelay: delay + 's',
-  opacity: 0,
+  // animation: `${appear} 10s infinite`,
+  // animationDelay: delay + 's',
+  // opacity: 0,
+  // display: 'none',
   left: '50%',
   top: '-50%',
   width: 380,
@@ -294,8 +295,9 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                       fontWeight={900}
                       textAlign={textAlign[random] as any}
                       sx={{
-                        marginLeft: Math.floor(Math.random() * 60) + '%',
-                        mixBlendMode: 'exclusion'
+                        //
+                        marginLeft: Math.floor(Math.random() * 60) + '%'
+                        // mixBlendMode: 'exclusion'
                       }}
                     >
                       {title}
@@ -304,6 +306,7 @@ export function GalleryContent2({ color = '#000000' }: { color?: string }) {
                       <Img
                         delay={idx + idx * Math.random() * random}
                         sx={{
+                          display: Math.random() > 0.5 ? 'auto' : 'none',
                           zindex: random,
                           background: `no-repeat  center/cover url(${gif})`,
                           left: Math.floor(0.1 + Math.random() * 60) + '%'

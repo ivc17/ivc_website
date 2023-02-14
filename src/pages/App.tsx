@@ -8,7 +8,7 @@ import { LoaderProvider } from 'context/LoaderContext'
 function App() {
   return (
     <>
-      <Box>
+      <Box maxHeight={'100vh'} overflow="hidden">
         <SkyboxProvider>
           <BrowserRouter>
             <Header />
