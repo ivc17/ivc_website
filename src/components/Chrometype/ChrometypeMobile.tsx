@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import typeUrl from 'assets/img/type.png'
 import { keyframes } from '@emotion/react'
 import { styled } from '@mui/material'
