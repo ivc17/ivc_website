@@ -17,6 +17,8 @@ import SingleWork from 'pages/SingleWork'
 // import Loader from 'components/Loader'
 import React from 'react'
 import { LoaderContext } from 'context/LoaderContext'
+import isMobile from 'is-mobile'
+import ChrometypeMobile from 'components/Chrometype/ChrometypeMobile'
 // import BackGlass from 'components/BackGlass'
 
 export default function Home() {
@@ -39,6 +41,13 @@ export default function Home() {
       <AboutPage />
       <ContactPage />
       <SingleWork />
+      {isMobile({ tablet: false }) && (
+        <ChrometypeMobile
+          finishLoading={finishLoading}
+          pathname={location.pathname}
+          setLoaderProgress={setLoaderProgress}
+        />
+      )}
       <Box>
         <Box position="fixed" top={'0'} left={'0'} width="100vw" height="100vh">
           <Suspense fallback={null}>
@@ -73,13 +82,15 @@ export default function Home() {
               />
 
               <Suspense fallback={null}>
-                <Chrometype
-                  isDownMd={isDownMd}
-                  pathname={location.pathname}
-                  cameraTarget={cameraTarget}
-                  setLoaderProgress={setLoaderProgress}
-                  finishLoading={finishLoading}
-                />
+                {!isMobile() && (
+                  <Chrometype
+                    isDownMd={isDownMd}
+                    pathname={location.pathname}
+                    cameraTarget={cameraTarget}
+                    setLoaderProgress={setLoaderProgress}
+                    finishLoading={finishLoading}
+                  />
+                )}
               </Suspense>
 
               <Skybox
